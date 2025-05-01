@@ -1,0 +1,45 @@
+@use '@styles/variable.module.scss' as *;
+@use '@styles/mixin.module.scss' as mixin;
+
+.bannerContainer {
+    background: url(https://bookingcare.vn/assets/anh/bookingcare-cover-2.jpg)
+        center center no-repeat;
+
+    height: 500px;
+    background-size: cover;
+    padding: 10px 0;
+
+    .title1 {
+        text-align: center;
+        font-size: 2rem;
+        text-shadow: 1px 1px 1px #333;
+        color: #e5fbe9;
+        margin-top: 20px;
+    }
+
+    .title2 {
+        text-align: center;
+        font-size: 2rem;
+        text-shadow: 1px 1px 1px #333;
+        color: #e5fbe9;
+    }
+
+    .options {
+        @include mixin.flex_box_custom(space-between, center);
+
+        padding: 0 20%;
+        margin-top: 25px;
+
+        .optionLeft {
+            @include mixin.flex_box_custom(center, center);
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .optionRight {
+            @include mixin.flex_box_custom(center, center);
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+}

@@ -7,7 +7,7 @@ function Search() {
             <CiSearch />
 
             <input
-                placeholder='Placeholder Text'
+                placeholder='Search...'
                 type='text'
                 className={styles.input}
             />
