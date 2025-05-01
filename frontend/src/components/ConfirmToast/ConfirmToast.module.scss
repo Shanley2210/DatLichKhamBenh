@@ -1,0 +1,57 @@
+.confirmToast {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    min-width: 300px;
+    max-width: 500px;
+
+    .messageToast {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+
+        &::first-line {
+            font-weight: bold;
+            font-size: 15px;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        border-left: 1px solid #c0c0c0;
+
+        .btnNo {
+            background: none;
+            border: none;
+            color: #ee5b5b;
+            cursor: pointer;
+            padding: 0;
+            font-size: 14px;
+            margin-left: 20px;
+            min-width: 50px;
+
+            &:hover {
+                text-decoration: underline;
+                color: #d30c0c;
+            }
+        }
+
+        .btnYes {
+            background: none;
+            border: none;
+            color: #5b5bee;
+            cursor: pointer;
+            padding: 0;
+            font-size: 14px;
+            font-weight: 500;
+
+            &:hover {
+                text-decoration: underline;
+                color: #0c0cd3;
+            }
+        }
+    }
+}

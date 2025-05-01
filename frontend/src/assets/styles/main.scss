@@ -1,0 +1,12 @@
+@use './variable.module.scss' as *;
+@use './mixin.module.scss' as *;
+@use './global.module.scss' as *;
+
+//Normalize
+@import 'normalize.css';
+
+//Bootstrap
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+//Font Open Sans
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
