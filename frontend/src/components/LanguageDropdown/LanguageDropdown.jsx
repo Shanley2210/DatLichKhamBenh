@@ -1,20 +1,24 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import styles from './LanguageDropdown.module.scss';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import VietNamese from '@icons/Vietnamese.svg';
 import English from '@icons/English.svg';
-import { LanguageContext } from '@contexts/LanguageProvider';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setLanguage } from '@/stores/languageSlice';
 
 function LanguageDropdown() {
-    const { selectedLanguage, setSelectedLanguage } =
-        useContext(LanguageContext);
+    const dispatch = useDispatch();
+    const selectedLanguage = useSelector(
+        (state) => state.language.selectedLanguage
+    );
 
     const [open, setOpen] = useState(false);
 
     const toggleDropdown = () => setOpen(!open);
 
     const handleSelect = (lang) => {
-        setSelectedLanguage(lang);
+        dispatch(setLanguage(lang));
         setOpen(false);
     };
 

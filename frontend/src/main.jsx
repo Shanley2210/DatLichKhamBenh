@@ -11,8 +11,14 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 //i18n
 import './i18n';
 
+//Redux
+import { Provider } from 'react-redux';
+import { store } from '@/stores/index.jsx';
+
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <App />
+        <Provider store={store}>
+            <App />
+        </Provider>
     </StrictMode>
 );
