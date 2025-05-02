@@ -1,0 +1,25 @@
+{
+    "homeHeader": {
+        "all": "Tất cả",
+        "home": "Tại nhà",
+        "hospital": "Tại viện",
+        "healthy": "Sống khỏe",
+        "search": "Tìm kiếm...",
+        "partner": "Hợp tác",
+        "appointment": "Lịch hẹn"
+    },
+    "banner": {
+        "title": "NỀN TẢNG Y TẾ",
+        "description": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
+        "button": "Khám Chuyên Khoa",
+        "button2": "Khám Tổng Quát",
+        "button3": "Sức Khỏe Tinh Thần",
+        "button4": "Gói Phẩu Thuật",
+        "button5": "Bài Test Sức Khỏe",
+        "button6": "Khám Từ Xa",
+        "button7": "Xét Nghiệm Y Học",
+        "button8": "Khám Nha Khoa",
+        "button9": "Sức Khỏe Tiểu Đường",
+        "button10": "Y Tế Gần Bạn"
+    }
+}

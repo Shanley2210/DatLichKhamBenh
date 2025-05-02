@@ -8,6 +8,9 @@ import '@styles/main.scss';
 //BootstrapJS
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
+//i18n
+import './i18n';
+
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <App />

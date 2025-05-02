@@ -1,15 +1,19 @@
 import ComprehensiveService from '@components/ComprehensiveService/ComprehensiveService';
 import styles from './Banner.module.scss';
 import { dataCService } from './constants';
+import { useTranslation } from 'react-i18next';
 
 function Banner() {
+    const { t } = useTranslation();
+    const dataS = dataCService(t);
+
     return (
         <div className={styles.bannerContainer}>
-            <div className={styles.title1}>NỀN TẢNG Y TẾ</div>
-            <div className={styles.title2}>CHĂM SÓC SỨC KHỎE TOÀN DIỆN</div>
+            <div className={styles.title1}>{t('banner.title')}</div>
+            <div className={styles.title2}>{t('banner.description')}</div>
             <div className={styles.options}>
                 <div className={styles.optionLeft}>
-                    {dataCService.slice(0, 5).map((item, index) => (
+                    {dataS.slice(0, 5).map((item, index) => (
                         <ComprehensiveService
                             key={index}
                             icon={item.icon}
@@ -18,7 +22,7 @@ function Banner() {
                     ))}
                 </div>
                 <div className={styles.optionRight}>
-                    {dataCService.slice(5, 10).map((item, index) => (
+                    {dataS.slice(5, 10).map((item, index) => (
                         <ComprehensiveService
                             key={index}
                             icon={item.icon}

@@ -1,0 +1,25 @@
+{
+    "homeHeader": {
+        "all": "All",
+        "home": "Home",
+        "hospital": "Hospital",
+        "healthy": "Healthy",
+        "search": "Search...",
+        "partner": "Partner",
+        "appointment": "Appointment"
+    },
+    "banner": {
+        "title": "HEALTHCARE PLATFORM",
+        "description": "COMPREHENSIVE HEALTHCARE",
+        "button": "Specialized Examination",
+        "button2": "General Check-up",
+        "button3": "Mental Health",
+        "button4": "Surgical Package",
+        "button5": "Health Test",
+        "button6": "Remote Consultation",
+        "button7": "Medical Testing",
+        "button8": "Dental Check-up",
+        "button9": "Diabetes Health",
+        "button10": "Healthcare Near You"
+    }
+}

@@ -1,13 +1,13 @@
 import styles from './Search.module.scss';
 import { CiSearch } from 'react-icons/ci';
 
-function Search() {
+function Search({ placeholder }) {
     return (
         <div className={styles.customInput}>
             <CiSearch />
 
             <input
-                placeholder='Search...'
+                placeholder={placeholder}
                 type='text'
                 className={styles.input}
             />

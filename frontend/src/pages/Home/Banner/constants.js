@@ -1,43 +1,43 @@
-export const dataCService = [
+export const dataCService = (t) => [
     {
         icon: 'https://cdn.bookingcare.vn/fo/w128/2023/06/07/161905-iconkham-chuyen-khoa.png',
-        title: 'Khám Chuyên Khoa'
+        title: t('banner.button')
     },
     {
         icon: 'https://cdn.bookingcare.vn/fo/w128/2023/06/07/161350-iconkham-tong-quan.png',
-        title: 'Khám Tổng Quát'
+        title: t('banner.button2')
     },
     {
         icon: 'https://cdn.bookingcare.vn/fo/w128/2023/06/07/161403-iconsuc-khoe-tinh-than.png',
-        title: 'Sức Khỏe Tinh Thần'
+        title: t('banner.button3')
     },
     {
         icon: 'https://cdn.bookingcare.vn/fo/w128/2023/06/07/161421-icongoi-phau-thuat.png',
-        title: 'Gói Phẩu Thuật'
+        title: t('banner.button4')
     },
     {
         icon: 'https://cdn.bookingcare.vn/fo/w128/2023/06/07/161442-iconbai-test-suc-khoe2.png',
-        title: 'Bài Test Sức Khỏe'
+        title: t('banner.button5')
     },
 
     {
         icon: 'https://cdn.bookingcare.vn/fo/w128/2023/06/07/161817-iconkham-tu-xa.png',
-        title: 'Khám Từ Xa'
+        title: t('banner.button6')
     },
     {
         icon: 'https://cdn.bookingcare.vn/fo/w128/2023/06/07/161340-iconxet-nghiem-y-hoc.png',
-        title: 'Xét Nghiệm Y Học'
+        title: t('banner.button7')
     },
     {
         icon: 'https://cdn.bookingcare.vn/fo/w128/2023/06/07/161410-iconkham-nha-khoa.png',
-        title: 'Khám Nha Khoa'
+        title: t('banner.button8')
     },
     {
         icon: 'https://cdn.bookingcare.vn/fo/w128/2023/09/20/145257-thiet-ke-chua-co-ten-3.png',
-        title: 'Sức Khỏe Tiểu Đường'
+        title: t('banner.button9')
     },
     {
         icon: 'https://cdn.bookingcare.vn/fo/w128/2023/07/06/163421-153524-near-home-01.png',
-        title: 'Y Tế Gần Bạn'
+        title: t('banner.button10')
     }
 ];

@@ -2,12 +2,15 @@
 @use '@styles/mixin.module.scss' as mixin;
 
 .bannerContainer {
-    background: url(https://bookingcare.vn/assets/anh/bookingcare-cover-2.jpg)
-        center center no-repeat;
+    background-image: url(https://bookingcare.vn/assets/anh/bookingcare-cover-2.jpg);
+
+    background-position: center;
+    background-repeat: no-repeat;
 
     height: 500px;
     background-size: cover;
     padding: 10px 0;
+    opacity: 0.9;
 
     .title1 {
         text-align: center;

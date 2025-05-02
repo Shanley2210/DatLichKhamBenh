@@ -69,9 +69,19 @@
                 font-weight: 500;
                 cursor: pointer;
 
+                .language{
+                    width: 120px;
+                   
+                }
+
                 div {
                     @include mixin.flex_box_custom(center, center);
                     align-items: center;
+
+                    .dropdown-menu {
+                        display: block !important;
+                        flex-direction: column !important;
+                    }
                 }
             }
         }

@@ -1,0 +1,35 @@
+.dropdownContainer {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+
+    .dropdownToggle {
+        cursor: pointer;
+    }
+
+    .dropdownMenu {
+        position: absolute;
+        top: 100%;
+        background-color: white;
+        border: 1px solid #ccc;
+        margin-top: 4px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        width: 125px;
+        flex-direction: column;
+
+        .dropdownItem {
+            padding: 8px 8px;
+            cursor: pointer;
+            font-size: 14px;
+
+            &:hover {
+                color: #000000;
+            }
+
+            .iconFlag {
+                margin-right: 5px;
+            }
+        }
+    }
+}

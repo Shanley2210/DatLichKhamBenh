@@ -9,6 +9,7 @@
             "@store/*": ["src/store/*"],
             "@hooks/*": ["src/hooks/*"],
             "@styles/*": ["src/styles/*"],
+            "@icons/*": ["src/icons/*"],
             "@layouts/*": ["src/layouts/*"],
             "@contexts/*": ["src/contexts/*"],
             "@containers/*": ["src/containers/*"]

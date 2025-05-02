@@ -1,13 +1,17 @@
 import styles from './HomeHeader.module.scss';
 import { IoMenu } from 'react-icons/io5';
-import logo from '@/assets/icons/logo.svg';
+import logo from '@icons/logo.svg';
 import { FaClockRotateLeft } from 'react-icons/fa6';
 import { PiHandshakeFill } from 'react-icons/pi';
 import Search from '@components/Search/Search';
 import { useState } from 'react';
 import cls from 'classnames';
+import LanguageDropdown from '@components/LanguageDropdown/LanguageDropdown';
+import { useTranslation } from 'react-i18next';
 
 function HomeHeader() {
+    const { t } = useTranslation();
+
     const [active, setActive] = useState(0);
 
     return (
@@ -27,7 +31,7 @@ function HomeHeader() {
                             [styles.isActive]: active === 0
                         })}
                     >
-                        Tất cả
+                        {t('homeHeader.all')}
                     </div>
                     <div
                         onClick={() => setActive(1)}
@@ -35,7 +39,7 @@ function HomeHeader() {
                             [styles.isActive]: active === 1
                         })}
                     >
-                        Tại nhà
+                        {t('homeHeader.home')}
                     </div>
                     <div
                         onClick={() => setActive(2)}
@@ -43,7 +47,7 @@ function HomeHeader() {
                             [styles.isActive]: active === 2
                         })}
                     >
-                        Tại viện
+                        {t('homeHeader.hospital')}
                     </div>
                     <div
                         onClick={() => setActive(3)}
@@ -51,29 +55,31 @@ function HomeHeader() {
                             [styles.isActive]: active === 3
                         })}
                     >
-                        Sống khỏe
+                        {t('homeHeader.healthy')}
                     </div>
                     <div>
-                        <Search />
+                        <Search placeholder={t('homeHeader.search')} />
                     </div>
                 </div>
 
                 <div className={styles.rightContent}>
                     <div className={styles.childContentRight}>
-                        <div>VN</div>
+                        <div className={styles.language}>
+                            <LanguageDropdown />
+                        </div>
                     </div>
-                    
+
                     <div className={styles.childContentRight}>
                         <div>
                             <PiHandshakeFill />
                         </div>
-                        <div>Hợp tác</div>
+                        <div>{t('homeHeader.partner')}</div>
                     </div>
                     <div className={styles.childContentRight}>
                         <div>
                             <FaClockRotateLeft />
                         </div>
-                        <div>Lịch hẹn</div>
+                        <div>{t('homeHeader.appointment')}</div>
                     </div>
                 </div>
             </div>
