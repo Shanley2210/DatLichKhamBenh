@@ -2,12 +2,15 @@
 @use '@styles/mixin.module.scss' as mixin;
 
 .headerContainer {
+    position: fixed;
+    top: 0;
     height: 78px;
     width: 100vw;
+    z-index: 100;
 
     .headerContent {
         @include mixin.flex_box_custom(flex-start, center, 50px);
-        background: #e4f3f1;
+        background: $background-color;
 
         padding: 10px 10%;
 

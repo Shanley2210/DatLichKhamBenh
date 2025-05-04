@@ -2,9 +2,12 @@
 @use '@styles/mixin.module.scss' as mixin;
 
 .homeHeaderContainer {
+    position: fixed;
+    top: 0;
     height: 78px;
     width: 100vw;
-    background: #e4f3f1;
+    background: $background-color;
+    z-index: 100;
 
     .homeHeaderContent {
         @include mixin.flex_box_custom(space-between, center);
@@ -69,9 +72,8 @@
                 font-weight: 500;
                 cursor: pointer;
 
-                .language{
+                .language {
                     width: 120px;
-                   
                 }
 
                 div {
