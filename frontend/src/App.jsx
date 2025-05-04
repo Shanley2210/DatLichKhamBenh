@@ -5,6 +5,7 @@ import routers from '@/router/router';
 import { ToastProvider } from '@contexts/ToastProvider';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import Scrollbars from 'react-custom-scrollbars-2';
 
 function App() {
     const selectedLanguage = useSelector(
@@ -20,18 +21,20 @@ function App() {
         <>
             <ToastProvider>
                 <BrowserRouter>
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <ScrollToTop />
-                        <Routes>
-                            {routers.map((item, index) => (
-                                <Route
-                                    path={item.path}
-                                    element={<item.component />}
-                                    key={index}
-                                />
-                            ))}
-                        </Routes>
-                    </Suspense>
+                    <Scrollbars style={{ width: '100vw', height: '100vh' }}>
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <ScrollToTop />
+                            <Routes>
+                                {routers.map((item, index) => (
+                                    <Route
+                                        path={item.path}
+                                        element={<item.component />}
+                                        key={index}
+                                    />
+                                ))}
+                            </Routes>
+                        </Suspense>
+                    </Scrollbars>
                 </BrowserRouter>
             </ToastProvider>
         </>
