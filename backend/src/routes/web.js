@@ -6,6 +6,7 @@ import {
     handleUpdateUser,
     handleDeleteUser
 } from '../controllers/userController';
+import { getAllCode } from '../controllers/allcodeController';
 
 const router = express.Router();
 
@@ -23,6 +24,9 @@ const initWebRoutes = (app) => {
     router.post('/api/create-new-user', handleCreateNewUser);
     router.put('/api/update-user', handleUpdateUser);
     router.delete('/api/delete-user', handleDeleteUser);
+
+    //allcodes api
+    router.get('/api/allcodes', getAllCode);
 
     //return
     return app.use('/', router);

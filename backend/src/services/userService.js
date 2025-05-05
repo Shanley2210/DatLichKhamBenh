@@ -1,4 +1,3 @@
-import { raw } from 'express';
 import db from '../models/index';
 import bcrypt from 'bcryptjs';
 const salt = bcrypt.genSaltSync(10);
