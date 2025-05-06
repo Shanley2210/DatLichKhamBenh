@@ -27,14 +27,14 @@ const getAllUsers = (userId) => {
 
             if (userId === 'ALL') {
                 users = await db.User.findAll({
-                    attributes: { exclude: ['password'] }
+                    attributes: { exclude: ['password', 'refreshToken'] }
                 });
             }
 
             if (userId && userId !== 'ALL') {
                 users = await db.User.findOne({
                     where: { id: userId },
-                    attributes: { exclude: ['password'] }
+                    attributes: { exclude: ['password', 'refreshToken'] }
                 });
             }
 

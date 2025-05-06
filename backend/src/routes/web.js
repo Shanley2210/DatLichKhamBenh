@@ -1,5 +1,9 @@
 import express from 'express';
-import { handleLogin } from '../controllers/authController';
+import {
+    handleLogin,
+    handleRefreshToken,
+    hanleLogout
+} from '../controllers/authController';
 import {
     handleGetAllUsers,
     handleCreateNewUser,
@@ -16,8 +20,10 @@ const initWebRoutes = (app) => {
         return res.send('Hello world');
     });
 
-    //api login
+    //api auth
     router.post('/api/login', handleLogin);
+    router.post('/api/refresh-token', handleRefreshToken);
+    router.post('/api/logout', hanleLogout);
 
     //api user
     router.get('/api/get-all-users', handleGetAllUsers);

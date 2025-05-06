@@ -7,6 +7,7 @@ module.exports = {
             {
                 email: 'admin@gmail.com',
                 password: '123456',
+                refreshToken: '',
                 firstName: 'Nguyễn Hiếu',
                 lastName: 'Shanley',
                 phoneNumber: '0123456789',
