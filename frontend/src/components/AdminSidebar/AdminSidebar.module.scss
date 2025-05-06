@@ -1,0 +1,96 @@
+@use '@styles/variable.module.scss' as *;
+@use '@styles/mixin.module.scss' as mixin;
+
+.input {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 100vh;
+    background-color: $background-color;
+    justify-content: flex-start;
+
+    img {
+        width: 100%;
+        height: 70px;
+    }
+
+    .value {
+        background-color: transparent;
+        border: none;
+        padding: 10px;
+        color: #1a1f24;
+        display: flex;
+        position: relative;
+        gap: 5px;
+        cursor: pointer;
+
+        &:not(:active):hover,
+        &:focus {
+            background-color: #2f81f7;
+        }
+
+        &:focus,
+        &:active {
+            background-color: #4586bc;
+            outline: none;
+        }
+
+        &::before {
+            position: absolute;
+            top: 5px;
+            left: -10px;
+            width: 5px;
+            height: 80%;
+            background-color: #2f81f7;
+            opacity: 0;
+        }
+
+        &:focus::before,
+        &:active::before {
+            opacity: 1;
+        }
+
+        svg {
+            font-size: 24px;
+        }
+    }
+
+    .active {
+        background-color: #4586bc;
+
+        &::before {
+            opacity: 1;
+        }
+    }
+
+    .account {
+        margin-top: auto;
+
+        div {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #e1e4e8;
+            cursor: pointer;
+
+            img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                margin-right: 8px;
+            }
+
+            span {
+                flex: 1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 14px;
+            }
+        }
+
+        button {
+            width: 100%;
+        }
+    }
+}

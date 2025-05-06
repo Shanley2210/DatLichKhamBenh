@@ -21,6 +21,14 @@
         "button8": "Khám Nha Khoa",
         "button9": "Sức Khỏe Tiểu Đường",
         "button10": "Y Tế Gần Bạn"
+    },
+    "notFound": {
+        "title": "404",
+        "description": "Trang không tìm thấy",
+        "button": "Trở về trang chủ"
+    },
+    "adminSidebar": {
+        "user": "Quản lý User",
+        "user2": "User - Redux"
     }
-    
 }

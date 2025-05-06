@@ -3,9 +3,9 @@ import styles from './LanguageDropdown.module.scss';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import VietNamese from '@icons/Vietnamese.svg';
 import English from '@icons/English.svg';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { setLanguage } from '@/stores/languageSlice';
+import i18n from '@/i18n';
 
 function LanguageDropdown() {
     const dispatch = useDispatch();

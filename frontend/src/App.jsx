@@ -6,6 +6,8 @@ import { ToastProvider } from '@contexts/ToastProvider';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Scrollbars from 'react-custom-scrollbars-2';
+import LanguageProvider from '@contexts/LanguageProvider';
+import LoadingPage from '@containers/LoadingPage/LoadingPage';
 
 function App() {
     const selectedLanguage = useSelector(
@@ -22,8 +24,9 @@ function App() {
             <ToastProvider>
                 <BrowserRouter>
                     <Scrollbars style={{ width: '100vw', height: '100vh' }}>
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<LoadingPage />}>
                             <ScrollToTop />
+                            <LanguageProvider />
                             <Routes>
                                 {routers.map((item, index) => (
                                     <Route

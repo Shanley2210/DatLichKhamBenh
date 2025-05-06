@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { ToastContext } from '@contexts/ToastProvider';
 import { handleLogin } from '@services/authService';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Login() {
     const {
@@ -63,8 +64,14 @@ function Login() {
 
             await handleLogin({ email, password })
                 .then((res) => {
-                    if (res.userData.roleId === 'R1') {
-                        navigate('/admin');
+                    if (res.errCode !== 0) {
+                        toast.error(res.errMessage);
+                    } else {
+                        toast.success(res.message);
+
+                        Cookies.set('user', JSON.stringify(res.userData));
+
+                        if (res.userData.roleId === 'R1') navigate('/admin');
                     }
                 })
                 .catch((err) => {

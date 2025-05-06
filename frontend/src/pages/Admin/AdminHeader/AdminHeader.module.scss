@@ -1,0 +1,9 @@
+@use '@styles/variable.module.scss' as *;
+@use '@styles/mixin.module.scss' as mixin;
+
+.adminHeader {
+    display: flex;
+    align-items: center;
+    background: $background-color;
+    height: 40px;
+}

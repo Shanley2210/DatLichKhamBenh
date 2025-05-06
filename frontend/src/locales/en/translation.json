@@ -21,5 +21,14 @@
         "button8": "Dental Check-up",
         "button9": "Diabetes Health",
         "button10": "Healthcare Near You"
+    },
+    "notFound": {
+        "title": "404",
+        "description": "Page not found",
+        "button": "Back to Home"
+    },
+    "adminSidebar": {
+        "user": "User Management",
+        "user2": "User Redux"
     }
 }
