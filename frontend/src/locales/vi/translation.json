@@ -30,5 +30,16 @@
     "adminSidebar": {
         "user": "Quản lý User",
         "user2": "User - Redux"
+    },
+    "login": {
+        "title": "Đăng Nhập",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "login": "Đăng nhập",
+        "forgot": "Quên mật khẩu?",
+        "noaccount": "Chưa có tài khoản?",
+        "register": "Đăng ký",
+        "facebook": "Đăng nhập với Facebook",
+        "google": "Đăng nhập với Google"
     }
 }

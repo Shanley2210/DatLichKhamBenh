@@ -8,6 +8,7 @@ import { ToastContext } from '@contexts/ToastProvider';
 import { handleLogin } from '@services/authService';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 function Login() {
     const {
@@ -26,6 +27,8 @@ function Login() {
         fbLoginButton,
         googleLoginButton
     } = styles;
+
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
 
@@ -84,13 +87,13 @@ function Login() {
         <div className={loginBackground}>
             <div className={loginContainer}>
                 <div className={loginContent}>
-                    <p className={title}>LOGIN</p>
+                    <p className={title}>{t('login.title')}</p>
 
                     <form noValidate className={form} onSubmit={handleSubmit}>
                         <input
                             type='email'
                             className={input}
-                            placeholder='Email'
+                            placeholder={t('login.email')}
                             autoComplete='current-password'
                             id='email'
                             onBlur={formik.handleBlur}
@@ -101,7 +104,7 @@ function Login() {
                         <input
                             type='password'
                             className={input}
-                            placeholder='Password'
+                            placeholder={t('login.password')}
                             autoComplete='current-password'
                             id='password'
                             onBlur={formik.handleBlur}
@@ -111,25 +114,27 @@ function Login() {
 
                         <p className={pageLink}>
                             <span className={pageLinkLabel}>
-                                Forgot Password?
+                                {t('login.forgot')}
                             </span>
                         </p>
                         <button className={formBtn} type='submit'>
-                            Log in
+                            {t('login.login')}
                         </button>
                     </form>
                     <p className={signUpLabel}>
-                        Don't have an account?
-                        <span className={signUpLink}>Sign up</span>
+                        {t('login.noaccount')}
+                        <span className={signUpLink}>
+                            {t('login.register')}
+                        </span>
                     </p>
                     <div className={buttonsContainer}>
                         <div className={fbLoginButton}>
                             <FaFacebook />
-                            <span> Log in with Facebook</span>
+                            <span>{t('login.facebook')}</span>
                         </div>
                         <div className={googleLoginButton}>
                             <FcGoogle />
-                            <span>Log in with Google</span>
+                            <span>{t('login.google')}</span>
                         </div>
                     </div>
                 </div>

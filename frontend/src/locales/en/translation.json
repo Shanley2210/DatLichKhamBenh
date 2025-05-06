@@ -30,5 +30,16 @@
     "adminSidebar": {
         "user": "User Management",
         "user2": "User Redux"
+    },
+    "login": {
+        "title": "Login",
+        "email": "Email",
+        "password": "Password",
+        "login": "Login",
+        "forgot": "Forgot Password?",
+        "noaccount": "Don't have an account?",
+        "register": "Sign up",
+        "facebook": "Login with Facebook",
+        "google": "Login with Google"
     }
 }
