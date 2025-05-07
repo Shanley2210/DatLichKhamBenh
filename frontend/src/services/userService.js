@@ -16,4 +16,10 @@ const updateUser = async (data) => {
     return await axios.put(`/api/update-user`, data);
 };
 
-export { getAllUser, addNewUser, deleteUser, updateUser };
+const getUserInfo = async (token) => {
+    return await axios.get(`/api/get-user-info`, {
+        headers: { Authorization: `Bearer ${token}` }
+    });
+};
+
+export { getAllUser, addNewUser, deleteUser, updateUser, getUserInfo };

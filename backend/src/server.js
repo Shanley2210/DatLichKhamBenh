@@ -18,6 +18,12 @@ configViewEngine(app);
 
 initWebRoutes(app);
 
+app.use((req, res) => {
+    res.status(404).json({
+        errCode: 404,
+        errMessage: 'Endpoint not found!'
+    });
+});
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({

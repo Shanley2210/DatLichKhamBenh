@@ -1,6 +1,7 @@
 import db from '../models/index';
 import bcrypt from 'bcryptjs';
 const salt = bcrypt.genSaltSync(10);
+import jwt from 'jsonwebtoken';
 
 const checkUserEmail = (userEmail) => {
     return new Promise(async (resolve, reject) => {
@@ -165,4 +166,39 @@ const deleteUser = (userId) => {
     });
 };
 
-export { getAllUsers, createNewUser, deleteUser, updateUser };
+const getUserInfo = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!userId) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameter!'
+                });
+                return;
+            }
+
+            const user = await db.User.findOne({
+                where: { id: userId },
+                attributes: { exclude: ['password', 'refreshToken'] }
+            });
+
+            if (!user) {
+                resolve({
+                    errCode: 2,
+                    errMessage: 'User not found!'
+                });
+                return;
+            }
+
+            resolve({
+                errCode: 0,
+                message: 'OK',
+                userData: user
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+export { getAllUsers, createNewUser, deleteUser, updateUser, getUserInfo };

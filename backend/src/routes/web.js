@@ -8,9 +8,15 @@ import {
     handleGetAllUsers,
     handleCreateNewUser,
     handleUpdateUser,
-    handleDeleteUser
+    handleDeleteUser,
+    handleGetUserInfo
 } from '../controllers/userController';
 import { getAllCode } from '../controllers/allcodeController';
+import {
+    verifyAdmin,
+    verifySelfOrAdmin,
+    verifyToken
+} from '../middlewares/authenticateToken';
 
 const router = express.Router();
 
@@ -26,10 +32,21 @@ const initWebRoutes = (app) => {
     router.post('/api/logout', hanleLogout);
 
     //api user
-    router.get('/api/get-all-users', handleGetAllUsers);
-    router.post('/api/create-new-user', handleCreateNewUser);
-    router.put('/api/update-user', handleUpdateUser);
-    router.delete('/api/delete-user', handleDeleteUser);
+    router.get(
+        '/api/get-all-users',
+        verifyToken,
+        verifySelfOrAdmin,
+        handleGetAllUsers
+    );
+    router.post('/api/create-new-user', verifyAdmin, handleCreateNewUser);
+    router.put(
+        '/api/update-user',
+        verifyToken,
+        verifySelfOrAdmin,
+        handleUpdateUser
+    );
+    router.delete('/api/delete-user', verifyAdmin, handleDeleteUser);
+    router.get('/api/get-user-info', verifyToken, handleGetUserInfo);
 
     //allcodes api
     router.get('/api/allcodes', getAllCode);

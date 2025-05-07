@@ -2,9 +2,11 @@ import {
     createNewUser,
     deleteUser,
     getAllUsers,
+    getUserInfo,
     updateUser
 } from '../services/userService';
 
+//CRUD
 const handleGetAllUsers = async (req, res) => {
     const id = req.query.id ? req.query.id : null;
 
@@ -61,9 +63,32 @@ const handleDeleteUser = async (req, res) => {
     return res.status(200).json(message);
 };
 
+const handleGetUserInfo = async (req, res) => {
+    try {
+        const userId = req.user.userID;
+
+        if (!userId) {
+            return res.status(400).json({
+                errCode: 1,
+                errMessage: 'Missing required parameters!'
+            });
+        }
+
+        const message = await getUserInfo(userId);
+
+        return res.status(200).json(message);
+    } catch (e) {
+        console.log('get user info error: ', e);
+        return res
+            .status(200)
+            .json({ errCode: -1, errMessage: 'Error from server' });
+    }
+};
+
 export {
     handleGetAllUsers,
     handleCreateNewUser,
     handleUpdateUser,
-    handleDeleteUser
+    handleDeleteUser,
+    handleGetUserInfo
 };

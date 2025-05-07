@@ -17,7 +17,9 @@ export default defineConfig({
             '@contexts': path.resolve(__dirname, 'src/contexts'),
             '@layouts': path.resolve(__dirname, 'src/layouts'),
             '@clients': path.resolve(__dirname, 'src/clients'),
-            '@containers': path.resolve(__dirname, 'src/containers')
+            '@containers': path.resolve(__dirname, 'src/containers'),
+            '@hooks': path.resolve(__dirname, 'src/hooks'),
+            '@stores': path.resolve(__dirname, 'src/stores')
         }
     }
 });

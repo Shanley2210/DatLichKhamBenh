@@ -6,35 +6,38 @@ import AdminHeader from '@pages/Admin/AdminHeader/AdminHeader';
 import Cookies from 'js-cookie';
 import NotFound from '@containers/NotFound/NotFound';
 import UserManageRedux from '@pages/Admin/UserManageRedux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserInfo } from '@stores/userSlice';
+import LoadingPage from '@containers/LoadingPage/LoadingPage';
 
 function Admin() {
+    const dispatch = useDispatch();
+    const { userInfo, loading } = useSelector((state) => state.user);
+
     const [view, setView] = useState(() => {
         return localStorage.getItem('adminView') || '0';
     });
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const rawCookie = Cookies.get('user');
-        if (rawCookie) {
-            try {
-                const parsedUser = JSON.parse(decodeURIComponent(rawCookie));
-                setUser(parsedUser);
-            } catch (err) {
-                console.error('Lỗi khi đọc cookie user:', err);
-            }
-        }
-    }, []);
 
     useEffect(() => {
         localStorage.setItem('adminView', view);
     }, [view]);
 
+    useEffect(() => {
+        dispatch(fetchUserInfo());
+    }, [dispatch]);
+
     return (
         <>
-            {user ? (
+            {loading ? (
+                <LoadingPage />
+            ) : userInfo?.roleId === 'R1' || userInfo?.roleId === 'R2' ? (
                 <div className={styles.adminContainer}>
                     <div>
-                        <AdminSidebar view={view} setView={setView} />
+                        <AdminSidebar
+                            userData={userInfo}
+                            view={view}
+                            setView={setView}
+                        />
                     </div>
 
                     <div className={styles.adminContent}>

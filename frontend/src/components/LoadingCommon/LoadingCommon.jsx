@@ -1,13 +1,10 @@
 import styles from './LoadingCommon.module.scss';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
-function LoadingCommon() {
-    return (
-        <div className={styles.loadingContainer}>
-            <svg viewBox='25 25 50 50'>
-                <circle r={20} cy={50} cx={50} />
-            </svg>
-        </div>
-    );
+function LoadingText() {
+    const { loading } = styles;
+
+    return <AiOutlineLoading3Quarters className={loading} />;
 }
 
-export default LoadingCommon;
+export default LoadingText;

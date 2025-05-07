@@ -49,7 +49,7 @@ const handleUserLogin = (email, password) => {
                             },
                             process.env.JWT_SECRET,
                             {
-                                expiresIn: '1d'
+                                expiresIn: '5m'
                             }
                         );
 
@@ -87,7 +87,7 @@ const handleUserLogin = (email, password) => {
                         userData.refreshToken = refreshToken;
                         delete user.password;
                         delete user.id;
-                        userData.user = user;
+                        userData.userData = user;
                     } else {
                         userData.errCode = 3;
                         userData.errMessage = `Password is incorrect`;
@@ -143,7 +143,7 @@ const handleUserRefreshToken = (refreshToken) => {
                 },
                 process.env.JWT_SECRET,
                 {
-                    expiresIn: '1d'
+                    expiresIn: '5m'
                 }
             );
 

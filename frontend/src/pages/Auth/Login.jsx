@@ -9,6 +9,7 @@ import { handleLogin } from '@services/authService';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
+import LoadingCommon from '@components/LoadingCommon/LoadingCommon';
 
 function Login() {
     const {
@@ -29,10 +30,11 @@ function Login() {
     } = styles;
 
     const { t } = useTranslation();
-
     const navigate = useNavigate();
 
     const { toast } = useContext(ToastContext);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -65,20 +67,31 @@ function Login() {
         onSubmit: async (values) => {
             const { email, password } = values;
 
+            setIsLoading(true);
             await handleLogin({ email, password })
                 .then((res) => {
-                    if (res.errCode !== 0) {
-                        toast.error(res.errMessage);
+                    if (res.data.errCode !== 0) {
+                        toast.error(res.data.errMessage);
                     } else {
-                        toast.success(res.message);
+                        toast.success(res.data.message);
 
-                        Cookies.set('user', JSON.stringify(res.userData));
+                        Cookies.set('token', res.data.token, {
+                            expires: 1
+                        });
+                        Cookies.set('refreshToken', res.data.refreshToken, {
+                            expires: 7
+                        });
 
-                        if (res.userData.roleId === 'R1') navigate('/admin');
+                        if (res.data.userData.roleId === 'R1') {
+                            navigate('/admin');
+                        }
                     }
                 })
                 .catch((err) => {
                     console.log(err);
+                })
+                .finally(() => {
+                    setIsLoading(false);
                 });
         }
     });
@@ -118,7 +131,7 @@ function Login() {
                             </span>
                         </p>
                         <button className={formBtn} type='submit'>
-                            {t('login.login')}
+                            {isLoading ? <LoadingCommon /> : t('login.login')}
                         </button>
                     </form>
                     <p className={signUpLabel}>

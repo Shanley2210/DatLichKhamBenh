@@ -23,7 +23,7 @@ function UserManage() {
 
     const fetchAllUsers = async () => {
         const res = await getAllUser('ALL');
-        setAllUsers(res.users);
+        setAllUsers(res.data.users);
     };
 
     const handleDeleteUser = (id) => {
