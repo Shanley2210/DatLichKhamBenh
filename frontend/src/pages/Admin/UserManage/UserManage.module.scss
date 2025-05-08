@@ -1,0 +1,53 @@
+@use '@styles/variable.module.scss' as *;
+@use '@styles/mixin.module.scss' as mixin;
+
+.userContainer {
+    padding: 0 20px;
+
+    .title {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .btnAdd {
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: rgb(0, 0, 255);
+        user-select: none;
+        display: inline-block;
+
+        svg {
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .actionStyles {
+        user-select: none;
+
+        svg {
+            cursor: pointer;
+            font-size: 1.2rem;
+
+            &:first-child {
+                color: rgb(203, 176, 92);
+
+                &:hover {
+                    color: rgb(255, 255, 0);
+                }
+            }
+
+            &:last-child {
+                color: rgb(241, 131, 131);
+
+                &:hover {
+                    color: rgb(255, 0, 0);
+                }
+            }
+        }
+    }
+}

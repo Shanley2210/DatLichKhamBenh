@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-    selectedLanguage: 'vi'
-};
-
 const languageSlice = createSlice({
     name: 'language',
-    initialState,
+    initialState: {
+        selectedLanguage: 'vi'
+    },
     reducers: {
         setLanguage: (state, action) => {
             state.selectedLanguage = action.payload;

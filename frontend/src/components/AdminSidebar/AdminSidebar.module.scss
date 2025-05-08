@@ -4,13 +4,13 @@
 .input {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 15vw;
     height: 100vh;
     background-color: $background-color;
     justify-content: flex-start;
 
     img {
-        width: 100%;
+        width: 85%;
         height: 70px;
     }
 

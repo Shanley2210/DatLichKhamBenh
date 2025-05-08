@@ -1,11 +1,11 @@
-import UserManage from '@pages/Admin/UserManage';
+import UserManage from '@pages/Admin/UserManage/UserManage';
 import { useEffect, useState } from 'react';
 import styles from './Admin.module.scss';
 import AdminSidebar from '@components/AdminSidebar/AdminSidebar';
 import AdminHeader from '@pages/Admin/AdminHeader/AdminHeader';
 import Cookies from 'js-cookie';
 import NotFound from '@containers/NotFound/NotFound';
-import UserManageRedux from '@pages/Admin/UserManageRedux';
+import UserManageRedux from '@pages/Admin/UserManageRedux/UserManageRedux';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserInfo } from '@stores/userSlice';
 import LoadingPage from '@containers/LoadingPage/LoadingPage';

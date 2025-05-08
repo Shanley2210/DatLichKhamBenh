@@ -59,12 +59,12 @@ function EditUserModal({
 
         const res = await updateUser(dataEdit);
 
-        if (res && res.errCode === 0) {
+        if (res && res.data.errCode === 0) {
             setShow(false);
-            toast.success(res.message);
+            toast.success(res.data.message);
             fetchAllUsers();
         } else {
-            toast.error(res.errMessage);
+            toast.error(res.data.errMessage);
         }
     };
 

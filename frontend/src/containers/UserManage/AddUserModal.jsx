@@ -55,7 +55,7 @@ function AddUserModal({ show, setShow, fetchAllUsers }) {
 
         const res = await addNewUser(newUser);
 
-        if (res && res.errCode === 0) {
+        if (res && res.data.errCode === 0) {
             setShow(false);
             toast.success('Create new user successfully!');
             fetchAllUsers();
@@ -72,7 +72,7 @@ function AddUserModal({ show, setShow, fetchAllUsers }) {
                 roleId: 'R1'
             });
         } else {
-            toast.error(res.errMessage);
+            toast.error(res.data.errMessage);
         }
     };
 

@@ -1,5 +1,5 @@
 import { deleteUser, getAllUser } from '@services/userService';
-import styles from './Admin.module.scss';
+import styles from './UserManage.module.scss';
 import cls from 'classnames';
 import { useContext, useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
@@ -33,13 +33,12 @@ function UserManage() {
                 onYes={async () => {
                     await deleteUser(id)
                         .then((res) => {
-                            if (res.errCode === 0) {
-                                console.log(res);
+                            if (res.data.errCode === 0) {
                                 toast.dismiss();
-                                toast.success(res.message);
+                                toast.success(res.data.message);
                                 fetchAllUsers();
                             } else {
-                                toast.error(res.errMessage);
+                                toast.error(res.data.errMessage);
                                 fetchAllUsers();
                             }
                         })

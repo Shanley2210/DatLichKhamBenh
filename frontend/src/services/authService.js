@@ -4,4 +4,8 @@ const handleLogin = async (data) => {
     return await axios.post('/api/login', data);
 };
 
-export { handleLogin };
+const handleLogout = async (refreshToken) => {
+    return await axios.post('/api/logout', { refreshToken });
+};
+
+export { handleLogin, handleLogout };

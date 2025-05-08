@@ -49,7 +49,7 @@ const initWebRoutes = (app) => {
     router.get('/api/get-user-info', verifyToken, handleGetUserInfo);
 
     //allcodes api
-    router.get('/api/allcodes', getAllCode);
+    router.get('/api/allcodes', verifyAdmin, getAllCode);
 
     //return
     return app.use('/', router);

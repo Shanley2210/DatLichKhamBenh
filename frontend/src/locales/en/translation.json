@@ -29,7 +29,10 @@
     },
     "adminSidebar": {
         "user": "User Management",
-        "user2": "User Redux"
+        "user2": "User Redux",
+        "clinic": "Clinic Management",
+        "specialty": "Specialty Management",
+        "post": "Post Management"
     },
     "login": {
         "title": "Login",
@@ -41,5 +44,27 @@
         "register": "Sign up",
         "facebook": "Login with Facebook",
         "google": "Login with Google"
+    },
+    "manageUser": {
+        "title": "User Management",
+        "add": "Add new user",
+        "email": "Email",
+        "email2": "Email here ...",
+        "password": "Password",
+        "password2": "Password here ...",
+        "firtName": "First Name",
+        "firtName2": "First Name here ...",
+        "lastName": "Last Name",
+        "lastName2": "Last Name here ...",
+        "phone": "Phone Number",
+        "phone2": "Phone Number here ...",
+        "address": "Address",
+        "address2": "Address here ...",
+        "gender": "Gender",
+        "role": "Role",
+        "position": "Position",
+        "image": "Image",
+        "image2": "Choose image ...",
+        "save": "Save"
     }
 }

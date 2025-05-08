@@ -29,7 +29,10 @@
     },
     "adminSidebar": {
         "user": "Quản lý User",
-        "user2": "User - Redux"
+        "user2": "User - Redux",
+        "clinic": "Quản lý phòng khám",
+        "specialty": "Quản lý chuyên khoa",
+        "post": "Quản lý bài đăng"
     },
     "login": {
         "title": "Đăng Nhập",
@@ -41,5 +44,27 @@
         "register": "Đăng ký",
         "facebook": "Đăng nhập với Facebook",
         "google": "Đăng nhập với Google"
+    },
+    "manageUser": {
+        "title": "Quản lý User",
+        "add": "Thêm mới user",
+        "email": "Email",
+        "email2": "Nhập email tại đây ...",
+        "password": "Mật khẩu",
+        "password2": "Nhập mật khẩu tại đây ...",
+        "firtName": "Họ",
+        "firtName2": "Nhập họ tại đây ...",
+        "lastName": "Tên",
+        "lastName2": "Nhập tên tại đây ...",
+        "phone": "Số điện thoại",
+        "phone2": "Nhập số điện thoại tại đây ...",
+        "address": "Địa chỉ",
+        "address2": "Nhập địa chỉ tại đây ...",
+        "gender": "Giới tính",
+        "role": "Vai trò",
+        "position": "Chức danh",
+        "image": "Hình ảnh",
+        "image2": "Chọn hình ảnh ...",
+        "save": "Lưu"
     }
 }
