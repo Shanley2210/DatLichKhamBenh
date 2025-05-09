@@ -3,14 +3,22 @@ import styles from './UserManageRedux.module.scss';
 import cls from 'classnames';
 import { MdOutlineSave } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchGender, fetchPosititions, fetchRoles } from '@stores/adminSlice';
+import {
+    createNewUser,
+    fetchGender,
+    fetchPosititions,
+    fetchRoles
+} from '@stores/adminSlice';
 import { FaRegFileImage } from 'react-icons/fa';
+import { ToastContext } from '@contexts/ToastProvider';
 
 function UserManageRedux() {
     const dispatch = useDispatch();
     const { t } = useTranslation();
+
+    const { toast } = useContext(ToastContext);
 
     const { genders, roles, posititions, loading } = useSelector(
         (state) => state.admin
@@ -18,6 +26,18 @@ function UserManageRedux() {
     const { selectedLanguage } = useSelector((state) => state.language);
 
     const [previewImg, setPreviewImg] = useState(null);
+    const [newUser, setNewUser] = useState({
+        email: '',
+        password: '',
+        firstName: '',
+        lastName: '',
+        address: '',
+        phonenumber: '',
+        gender: 'M',
+        role: 'R1',
+        position: 'P0',
+        image: ''
+    });
 
     const handleOnChangeImage = (event) => {
         const data = event.target.files;
@@ -25,6 +45,55 @@ function UserManageRedux() {
         const objectUrl = URL.createObjectURL(file);
 
         setPreviewImg(objectUrl);
+        setNewUser({ ...newUser, image: file });
+    };
+
+    const checkValidateInput = () => {
+        let isValid = true;
+
+        let arrCheck = [
+            { key: 'Email', value: newUser.email },
+            { key: 'Password', value: newUser.password },
+            { key: 'First name', value: newUser.firstName },
+            { key: 'Last name', value: newUser.lastName },
+            { key: 'Address', value: newUser.address },
+            { key: 'Phone number', value: newUser.phonenumber },
+            { key: 'Gender', value: newUser.gender },
+            { key: 'Role', value: newUser.role },
+            { key: 'Position', value: newUser.position }
+        ];
+
+        arrCheck.forEach((item) => {
+            if (!item.value) {
+                isValid = false;
+                toast.warning('Missing parameter: ' + item.key);
+            }
+        });
+
+        return isValid;
+    };
+
+    const handleSave = async () => {
+        if (!checkValidateInput()) return;
+
+        const res = await dispatch(createNewUser(newUser));
+
+        if (res.payload.errCode === 1) {
+            if (selectedLanguage === 'vi') {
+                toast.error('Email đã được sử dụng, vui lòng chọn email khác!');
+            } else {
+                toast.error(
+                    'Email is already in used, please try another email!'
+                );
+            }
+            return;
+        }
+
+        if (selectedLanguage === 'vi') {
+            toast.success('Thêm người dùng mới thành công!');
+        } else {
+            toast.success('Add new user successfully!');
+        }
     };
 
     useEffect(() => {
@@ -63,6 +132,12 @@ function UserManageRedux() {
                         placeholder={t('manageUser.email2')}
                         name='input'
                         className={cls(styles.input)}
+                        onChange={(e) => {
+                            setNewUser({
+                                ...newUser,
+                                email: e.target.value
+                            });
+                        }}
                     />
                 </div>
 
@@ -76,6 +151,12 @@ function UserManageRedux() {
                         placeholder={t('manageUser.password2')}
                         name='input'
                         className={cls(styles.input)}
+                        onChange={(e) => {
+                            setNewUser({
+                                ...newUser,
+                                password: e.target.value
+                            });
+                        }}
                     />
                 </div>
 
@@ -88,6 +169,12 @@ function UserManageRedux() {
                         placeholder={t('manageUser.firtName2')}
                         name='input'
                         className={cls(styles.input)}
+                        onChange={(e) => {
+                            setNewUser({
+                                ...newUser,
+                                firstName: e.target.value
+                            });
+                        }}
                     />
                 </div>
 
@@ -100,6 +187,12 @@ function UserManageRedux() {
                         placeholder={t('manageUser.lastName2')}
                         name='input'
                         className={cls(styles.input)}
+                        onChange={(e) => {
+                            setNewUser({
+                                ...newUser,
+                                lastName: e.target.value
+                            });
+                        }}
                     />
                 </div>
 
@@ -112,6 +205,12 @@ function UserManageRedux() {
                         placeholder={t('manageUser.phone2')}
                         name='input'
                         className={cls(styles.input)}
+                        onChange={(e) => {
+                            setNewUser({
+                                ...newUser,
+                                phonenumber: e.target.value
+                            });
+                        }}
                     />
                 </div>
 
@@ -124,6 +223,12 @@ function UserManageRedux() {
                         placeholder={t('manageUser.address2')}
                         name='input'
                         className={cls(styles.input)}
+                        onChange={(e) => {
+                            setNewUser({
+                                ...newUser,
+                                address: e.target.value
+                            });
+                        }}
                     />
                 </div>
 
@@ -158,14 +263,22 @@ function UserManageRedux() {
                     <label htmlFor='input' className={cls(styles.text)}>
                         {t('manageUser.gender')}:
                     </label>
-                    <select className={cls(styles.input)}>
+                    <select
+                        className={cls(styles.input)}
+                        onChange={(e) => {
+                            setNewUser({
+                                ...newUser,
+                                gender: e.target.value
+                            });
+                        }}
+                    >
                         {loading ? (
                             <option>Loading gender...</option>
                         ) : (
                             genders &&
                             genders.length > 0 &&
                             genders.map((item) => (
-                                <option key={item.id}>
+                                <option key={item.id} value={item.key}>
                                     {selectedLanguage === 'vi'
                                         ? item.valueVi
                                         : item.valueEn}
@@ -179,14 +292,22 @@ function UserManageRedux() {
                     <label htmlFor='input' className={cls(styles.text)}>
                         {t('manageUser.role')}:
                     </label>
-                    <select className={cls(styles.input)}>
+                    <select
+                        className={cls(styles.input)}
+                        onChange={(e) => {
+                            setNewUser({
+                                ...newUser,
+                                role: e.target.value
+                            });
+                        }}
+                    >
                         {loading ? (
                             <option>Loading roles...</option>
                         ) : (
                             roles &&
                             roles.length > 0 &&
                             roles.map((item) => (
-                                <option key={item.id}>
+                                <option key={item.id} value={item.key}>
                                     {selectedLanguage === 'vi'
                                         ? item.valueVi
                                         : item.valueEn}
@@ -200,14 +321,22 @@ function UserManageRedux() {
                     <label htmlFor='input' className={cls(styles.text)}>
                         {t('manageUser.position')}:
                     </label>
-                    <select className={cls(styles.input)}>
+                    <select
+                        className={cls(styles.input)}
+                        onChange={(e) =>
+                            setNewUser({
+                                ...newUser,
+                                position: e.target.value
+                            })
+                        }
+                    >
                         {loading ? (
                             <option>Loading posititions...</option>
                         ) : (
                             posititions &&
                             posititions.length > 0 &&
                             posititions.map((item) => (
-                                <option key={item.id}>
+                                <option key={item.id} value={item.key}>
                                     {selectedLanguage === 'vi'
                                         ? item.valueVi
                                         : item.valueEn}
@@ -218,7 +347,11 @@ function UserManageRedux() {
                 </div>
 
                 <div className={cls(styles.inputContainer, 'col-12')}>
-                    <button className={cls(styles.button)}>
+                    <button
+                        className={cls(styles.button)}
+                        type='button'
+                        onClick={handleSave}
+                    >
                         <MdOutlineSave />
                         <p className={cls(styles.text)}>
                             {t('manageUser.save')}

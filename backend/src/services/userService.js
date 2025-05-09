@@ -79,10 +79,10 @@ const createNewUser = (data) => {
                 lastName: data.lastName,
                 address: data.address,
                 phoneNumber: data.phoneNumber,
-                gender: data.gender === '1' ? true : false,
-                image: data.image,
-                roleId: data.roleId,
-                positionId: data.positionId
+                gender: data.gender,
+                //image: data.image,
+                roleId: data.role,
+                positionId: data.position
             });
 
             return resolve({

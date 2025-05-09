@@ -19,7 +19,8 @@ export default defineConfig({
             '@clients': path.resolve(__dirname, 'src/clients'),
             '@containers': path.resolve(__dirname, 'src/containers'),
             '@hooks': path.resolve(__dirname, 'src/hooks'),
-            '@stores': path.resolve(__dirname, 'src/stores')
+            '@stores': path.resolve(__dirname, 'src/stores'),
+            '@utils': path.resolve(__dirname, 'src/utils')
         }
     }
 });

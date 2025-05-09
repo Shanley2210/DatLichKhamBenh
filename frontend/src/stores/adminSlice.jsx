@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getAllCodes } from '@services/adminService';
+import { addNewUser } from '@services/userService';
+import {
+    handleAsyncThunk,
+    handleAsyncThunkNoPayload
+} from '@utils/reduxHelpers';
 import Cookies from 'js-cookie';
 
 export const fetchGender = createAsyncThunk(
@@ -71,6 +76,25 @@ export const fetchPosititions = createAsyncThunk(
     }
 );
 
+export const createNewUser = createAsyncThunk(
+    'admin/createNewUser',
+    async (data, thunkAPI) => {
+        try {
+            const token = Cookies.get('token');
+
+            if (!token) {
+                return thunkAPI.rejectWithValue('Invalid token');
+            }
+
+            const res = await addNewUser(data, token);
+
+            return res.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message || 'Undefined error');
+        }
+    }
+);
+
 const adminSlide = createSlice({
     name: 'admin',
     initialState: {
@@ -92,49 +116,11 @@ const adminSlide = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder
+        handleAsyncThunk(builder, fetchGender, 'genders');
+        handleAsyncThunk(builder, fetchRoles, 'roles');
+        handleAsyncThunk(builder, fetchPosititions, 'posititions');
 
-            // gender
-            .addCase(fetchGender.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(fetchGender.fulfilled, (state, action) => {
-                state.loading = false;
-                state.genders = action.payload;
-            })
-            .addCase(fetchGender.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload || 'Error fetching gender';
-            })
-
-            // roles
-            .addCase(fetchRoles.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(fetchRoles.fulfilled, (state, action) => {
-                state.loading = false;
-                state.roles = action.payload;
-            })
-            .addCase(fetchRoles.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload || 'Error fetching roles';
-            })
-
-            // posititions
-            .addCase(fetchPosititions.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(fetchPosititions.fulfilled, (state, action) => {
-                state.loading = false;
-                state.posititions = action.payload;
-            })
-            .addCase(fetchPosititions.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload || 'Error fetching posititions';
-            });
+        handleAsyncThunkNoPayload(builder, createNewUser, 'createNewUser');
     }
 });
 

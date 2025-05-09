@@ -12,7 +12,8 @@
             "@icons/*": ["src/icons/*"],
             "@layouts/*": ["src/layouts/*"],
             "@contexts/*": ["src/contexts/*"],
-            "@containers/*": ["src/containers/*"]
+            "@containers/*": ["src/containers/*"],
+            "@utils/*": ["src/utils/*"]
         }
     },
     "include": ["src/**/*"]

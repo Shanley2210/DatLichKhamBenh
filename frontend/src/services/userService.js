@@ -4,8 +4,10 @@ const getAllUser = async (inputId) => {
     return await axios.get(`/api/get-all-users?id=${inputId}`, { id: inputId });
 };
 
-const addNewUser = async (data) => {
-    return await axios.post(`/api/create-new-user`, data);
+const addNewUser = async (data, token) => {
+    return await axios.post(`/api/create-new-user`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+    });
 };
 
 const deleteUser = async (userId) => {
