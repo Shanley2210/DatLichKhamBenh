@@ -66,5 +66,28 @@
         "image": "Image",
         "image2": "Choose image ...",
         "save": "Save"
+    },
+    "tableUser": {
+        "image": "Image",
+        "email": "Email",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phone": "Phone Number",
+        "address": "Address",
+        "gender": "Gender",
+        "role": "Role",
+        "position": "Position",
+        "action": "Action",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other",
+        "admin": "Admin",
+        "doctor": "Doctor",
+        "patient": "Patient",
+        "none": "None",
+        "master": "Master",
+        "PhD": "Doctor",
+        "associateProfessor": "Associate Professor",
+        "professor": "Professor"
     }
 }

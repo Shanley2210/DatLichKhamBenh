@@ -3,20 +3,23 @@ import styles from './UserManageRedux.module.scss';
 import cls from 'classnames';
 import { MdOutlineSave } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     createNewUser,
+    fetchAllUsers,
     fetchGender,
     fetchPosititions,
     fetchRoles
 } from '@stores/adminSlice';
 import { FaRegFileImage } from 'react-icons/fa';
 import { ToastContext } from '@contexts/ToastProvider';
+import TableUser from '@containers/UserManageRedux/TableUser';
 
 function UserManageRedux() {
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const fileInputRef = useRef(null);
 
     const { toast } = useContext(ToastContext);
 
@@ -32,7 +35,7 @@ function UserManageRedux() {
         firstName: '',
         lastName: '',
         address: '',
-        phonenumber: '',
+        phoneNumber: '',
         gender: 'M',
         role: 'R1',
         position: 'P0',
@@ -57,7 +60,7 @@ function UserManageRedux() {
             { key: 'First name', value: newUser.firstName },
             { key: 'Last name', value: newUser.lastName },
             { key: 'Address', value: newUser.address },
-            { key: 'Phone number', value: newUser.phonenumber },
+            { key: 'Phone number', value: newUser.phoneNumber },
             { key: 'Gender', value: newUser.gender },
             { key: 'Role', value: newUser.role },
             { key: 'Position', value: newUser.position }
@@ -73,6 +76,25 @@ function UserManageRedux() {
         return isValid;
     };
 
+    const clearInput = () => {
+        setNewUser({
+            email: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            address: '',
+            phoneNumber: '',
+            gender: 'M',
+            role: 'R1',
+            position: 'P0',
+            image: ''
+        });
+        setPreviewImg(null);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = null;
+        }
+    };
+
     const handleSave = async () => {
         if (!checkValidateInput()) return;
 
@@ -86,6 +108,7 @@ function UserManageRedux() {
                     'Email is already in used, please try another email!'
                 );
             }
+
             return;
         }
 
@@ -94,6 +117,8 @@ function UserManageRedux() {
         } else {
             toast.success('Add new user successfully!');
         }
+        clearInput();
+        dispatch(fetchAllUsers());
     };
 
     useEffect(() => {
@@ -132,6 +157,7 @@ function UserManageRedux() {
                         placeholder={t('manageUser.email2')}
                         name='input'
                         className={cls(styles.input)}
+                        value={newUser.email}
                         onChange={(e) => {
                             setNewUser({
                                 ...newUser,
@@ -151,6 +177,7 @@ function UserManageRedux() {
                         placeholder={t('manageUser.password2')}
                         name='input'
                         className={cls(styles.input)}
+                        value={newUser.password}
                         onChange={(e) => {
                             setNewUser({
                                 ...newUser,
@@ -169,6 +196,7 @@ function UserManageRedux() {
                         placeholder={t('manageUser.firtName2')}
                         name='input'
                         className={cls(styles.input)}
+                        value={newUser.firstName}
                         onChange={(e) => {
                             setNewUser({
                                 ...newUser,
@@ -187,6 +215,7 @@ function UserManageRedux() {
                         placeholder={t('manageUser.lastName2')}
                         name='input'
                         className={cls(styles.input)}
+                        value={newUser.lastName}
                         onChange={(e) => {
                             setNewUser({
                                 ...newUser,
@@ -205,10 +234,11 @@ function UserManageRedux() {
                         placeholder={t('manageUser.phone2')}
                         name='input'
                         className={cls(styles.input)}
+                        value={newUser.phoneNumber}
                         onChange={(e) => {
                             setNewUser({
                                 ...newUser,
-                                phonenumber: e.target.value
+                                phoneNumber: e.target.value
                             });
                         }}
                     />
@@ -223,6 +253,7 @@ function UserManageRedux() {
                         placeholder={t('manageUser.address2')}
                         name='input'
                         className={cls(styles.input)}
+                        value={newUser.address}
                         onChange={(e) => {
                             setNewUser({
                                 ...newUser,
@@ -252,6 +283,7 @@ function UserManageRedux() {
                         <input
                             type='file'
                             id='file'
+                            ref={fileInputRef}
                             onChange={(e) => {
                                 handleOnChangeImage(e);
                             }}
@@ -359,6 +391,8 @@ function UserManageRedux() {
                     </button>
                 </div>
             </form>
+
+            <TableUser />
         </div>
     );
 }

@@ -1,0 +1,35 @@
+.tableUserContainer {
+    margin-top: 1rem;
+    background: #fff;
+    border-radius: 5px;
+
+    .userImage {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .action {
+        font-size: 1.2rem;
+
+        svg {
+            cursor: pointer;
+
+            &:first-child {
+                color: rgb(203, 176, 92);
+
+                &:hover {
+                    color: rgb(255, 255, 0);
+                }
+            }
+
+            &:last-child {
+                color: rgb(241, 131, 131);
+
+                &:hover {
+                    color: rgb(255, 0, 0);
+                }
+            }
+        }
+    }
+}
