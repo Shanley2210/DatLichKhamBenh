@@ -5,8 +5,10 @@ module.exports = {
     up: (queryInterface, Sequelize) => {
         return queryInterface.bulkInsert('Users', [
             {
+                id: 1,
                 email: 'admin@gmail.com',
-                password: '123456',
+                password:
+                    '$2y$10$TPqUpEik3.fUmeHBID3sQ.d3v09BSoSH1IiHCbRmt9ULbyALt.CPu',
                 refreshToken: '',
                 firstName: 'Nguyễn Hiếu',
                 lastName: 'Shanley',
@@ -15,6 +17,7 @@ module.exports = {
                 gender: 1,
                 image: 'https://www.w3schools.com/howto/img_avatar.png',
                 roleId: 'R1',
+                positionId: 'P0',
 
                 createdAt: new Date(),
                 updatedAt: new Date()

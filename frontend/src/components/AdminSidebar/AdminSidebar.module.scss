@@ -8,6 +8,10 @@
     height: 100vh;
     background-color: $background-color;
     justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
 
     img {
         width: 85%;

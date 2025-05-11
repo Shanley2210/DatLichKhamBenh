@@ -65,7 +65,8 @@
         "position": "Chức danh",
         "image": "Hình ảnh",
         "image2": "Chọn hình ảnh ...",
-        "save": "Lưu"
+        "save": "Thêm",
+        "edit": "Cập nhật"
     },
     "tableUser": {
         "image": "Ảnh",

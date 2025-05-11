@@ -65,7 +65,8 @@
         "position": "Position",
         "image": "Image",
         "image2": "Choose image ...",
-        "save": "Save"
+        "save": "Add",
+        "edit": "Update"
     },
     "tableUser": {
         "image": "Image",

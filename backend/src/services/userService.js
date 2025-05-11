@@ -73,6 +73,12 @@ const createNewUser = (data) => {
 
             const hashPassword = await hasUserPassword(data.password);
 
+            const base64Data = data.image.replace(
+                /^data:image\/\w+;base64,/,
+                ''
+            );
+            const imageBuffer = Buffer.from(base64Data, 'base64');
+
             await db.User.create({
                 email: data.email,
                 password: hashPassword,
@@ -81,7 +87,7 @@ const createNewUser = (data) => {
                 address: data.address,
                 phoneNumber: data.phoneNumber,
                 gender: data.gender,
-                //image: data.image,
+                image: imageBuffer,
                 roleId: data.role,
                 positionId: data.position
             });
@@ -99,10 +105,10 @@ const createNewUser = (data) => {
 const updateUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.id) {
+            if (!data.id || !data.roleId || !data.positionId || !data.gender) {
                 return resolve({
                     errCode: 2,
-                    errMessage: 'User id is required!'
+                    errMessage: 'Missing required parameters!'
                 });
             }
 
@@ -118,12 +124,18 @@ const updateUser = (data) => {
                 });
             }
 
+            const base64Data = data.image.replace(
+                /^data:image\/\w+;base64,/,
+                ''
+            );
+            const imageBuffer = Buffer.from(base64Data, 'base64');
+
             user.firstName = data.firstName;
             user.lastName = data.lastName;
             user.address = data.address;
             user.phoneNumber = data.phoneNumber;
-            user.gender = data.gender === '1' ? true : false;
-            user.image = data.image;
+            user.gender = data.gender;
+            user.image = imageBuffer;
             user.roleId = data.roleId;
             user.positionId = data.positionId;
 

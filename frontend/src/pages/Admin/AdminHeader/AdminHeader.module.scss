@@ -6,4 +6,8 @@
     align-items: center;
     background: $background-color;
     height: 40px;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    z-index: 100;
 }

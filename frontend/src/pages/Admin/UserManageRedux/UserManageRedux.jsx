@@ -10,11 +10,14 @@ import {
     fetchAllUsers,
     fetchGender,
     fetchPosititions,
-    fetchRoles
+    fetchRoles,
+    updateAUser
 } from '@stores/adminSlice';
 import { FaRegFileImage } from 'react-icons/fa';
 import { ToastContext } from '@contexts/ToastProvider';
 import TableUser from '@containers/UserManageRedux/TableUser';
+import { bufferToBase64Url, getBase64 } from '@utils/commonUtils';
+import LoadingText from '@components/LoadingCommon/LoadingCommon';
 
 function UserManageRedux() {
     const dispatch = useDispatch();
@@ -41,14 +44,20 @@ function UserManageRedux() {
         position: 'P0',
         image: ''
     });
+    const [isEdit, setIsEdit] = useState(false);
+    const [userId, setUserId] = useState(null);
 
-    const handleOnChangeImage = (event) => {
+    const handleOnChangeImage = async (event) => {
         const data = event.target.files;
         const file = data[0];
-        const objectUrl = URL.createObjectURL(file);
+        if (file) {
+            const base64 = await getBase64(file);
+            const objectUrl = URL.createObjectURL(file);
 
-        setPreviewImg(objectUrl);
-        setNewUser({ ...newUser, image: file });
+            setPreviewImg(objectUrl);
+
+            setNewUser({ ...newUser, image: base64 });
+        }
     };
 
     const checkValidateInput = () => {
@@ -98,27 +107,91 @@ function UserManageRedux() {
     const handleSave = async () => {
         if (!checkValidateInput()) return;
 
-        const res = await dispatch(createNewUser(newUser));
+        if (!isEdit) {
+            const res = await dispatch(createNewUser(newUser));
 
-        if (res.payload.errCode === 1) {
-            if (selectedLanguage === 'vi') {
-                toast.error('Email đã được sử dụng, vui lòng chọn email khác!');
-            } else {
-                toast.error(
-                    'Email is already in used, please try another email!'
-                );
+            if (res.payload.errCode === 1) {
+                if (selectedLanguage === 'vi') {
+                    toast.error(
+                        'Email đã được sử dụng, vui lòng chọn email khác!'
+                    );
+                } else {
+                    toast.error(
+                        'Email is already in used, please try another email!'
+                    );
+                }
+
+                return;
             }
 
-            return;
+            if (res.payload.errCode === 0) {
+                if (selectedLanguage === 'vi') {
+                    toast.success('Thêm người dùng mới thành công!');
+                } else {
+                    toast.success('Add new user successfully!');
+                }
+            } else {
+                if (selectedLanguage === 'vi') {
+                    toast.error('Có lỗi khi thêm người dùng!');
+                } else {
+                    toast.error('There is an error when adding user!');
+                }
+
+                return;
+            }
+        } else {
+            const dataEdit = {
+                id: userId,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                address: newUser.address,
+                phoneNumber: newUser.phoneNumber,
+                image: newUser.image,
+                gender: newUser.gender,
+                roleId: newUser.role,
+                positionId: newUser.position
+            };
+            const res = await dispatch(updateAUser(dataEdit));
+
+            if (res.payload.errCode === 0) {
+                if (selectedLanguage === 'vi') {
+                    toast.success('Cập nhật người dùng thành công!');
+                } else {
+                    toast.success('Update user successfully!');
+                }
+            } else {
+                if (selectedLanguage === 'vi') {
+                    toast.error('Có lỗi khi cập nhật người dùng!');
+                } else {
+                    toast.error('There is an error when updating user!');
+                }
+
+                return;
+            }
+
+            setIsEdit(false);
         }
 
-        if (selectedLanguage === 'vi') {
-            toast.success('Thêm người dùng mới thành công!');
-        } else {
-            toast.success('Add new user successfully!');
-        }
         clearInput();
         dispatch(fetchAllUsers());
+    };
+
+    const handleEditUserFromParent = (user) => {
+        setIsEdit(true);
+        setNewUser({
+            email: user.email,
+            password: 'HARDCODE',
+            firstName: user.firstName,
+            lastName: user.lastName,
+            address: user.address,
+            phoneNumber: user.phoneNumber,
+            gender: user.gender,
+            role: user.roleId,
+            position: user.positionId,
+            image: user.image
+        });
+        setPreviewImg(bufferToBase64Url(user.image));
+        setUserId(user.id);
     };
 
     useEffect(() => {
@@ -156,6 +229,7 @@ function UserManageRedux() {
                         type='email'
                         placeholder={t('manageUser.email2')}
                         name='input'
+                        disabled={isEdit}
                         className={cls(styles.input)}
                         value={newUser.email}
                         onChange={(e) => {
@@ -176,6 +250,7 @@ function UserManageRedux() {
                         autoComplete='currentPassword'
                         placeholder={t('manageUser.password2')}
                         name='input'
+                        disabled={isEdit}
                         className={cls(styles.input)}
                         value={newUser.password}
                         onChange={(e) => {
@@ -297,6 +372,7 @@ function UserManageRedux() {
                     </label>
                     <select
                         className={cls(styles.input)}
+                        value={newUser.gender}
                         onChange={(e) => {
                             setNewUser({
                                 ...newUser,
@@ -326,6 +402,7 @@ function UserManageRedux() {
                     </label>
                     <select
                         className={cls(styles.input)}
+                        value={newUser.role}
                         onChange={(e) => {
                             setNewUser({
                                 ...newUser,
@@ -355,6 +432,7 @@ function UserManageRedux() {
                     </label>
                     <select
                         className={cls(styles.input)}
+                        value={newUser.position}
                         onChange={(e) =>
                             setNewUser({
                                 ...newUser,
@@ -380,19 +458,32 @@ function UserManageRedux() {
 
                 <div className={cls(styles.inputContainer, 'col-12')}>
                     <button
-                        className={cls(styles.button)}
+                        className={cls(styles.button, {
+                            [styles.edit]: isEdit
+                        })}
                         type='button'
                         onClick={handleSave}
                     >
-                        <MdOutlineSave />
-                        <p className={cls(styles.text)}>
-                            {t('manageUser.save')}
-                        </p>
+                        {loading ? (
+                            <LoadingText />
+                        ) : (
+                            <>
+                                <MdOutlineSave />
+                                <p className={cls(styles.text)}>
+                                    {isEdit
+                                        ? t('manageUser.edit')
+                                        : t('manageUser.save')}
+                                </p>
+                            </>
+                        )}
                     </button>
                 </div>
             </form>
 
-            <TableUser />
+            <TableUser
+                setIsEdit={setIsEdit}
+                editProps={handleEditUserFromParent}
+            />
         </div>
     );
 }

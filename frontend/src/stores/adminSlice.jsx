@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getAllCodes } from '@services/adminService';
-import { addNewUser, deleteUser, getAllUser } from '@services/userService';
+import {
+    addNewUser,
+    deleteUser,
+    getAllUser,
+    updateUser
+} from '@services/userService';
 import {
     handleAsyncThunk,
     handleAsyncThunkNoPayload
@@ -137,6 +142,25 @@ export const deleteAUser = createAsyncThunk(
     }
 );
 
+export const updateAUser = createAsyncThunk(
+    'admin/fectchUpdateUser',
+    async (data, thunkAPI) => {
+        try {
+            const token = Cookies.get('token');
+
+            if (!token) {
+                return thunkAPI.rejectWithValue('Invalid token');
+            }
+
+            const res = await updateUser(data);
+
+            return res.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message || 'Undefined error');
+        }
+    }
+);
+
 const adminSlide = createSlice({
     name: 'admin',
     initialState: {
@@ -169,6 +193,7 @@ const adminSlide = createSlice({
         handleAsyncThunkNoPayload(builder, createNewUser, 'createNewUser');
         handleAsyncThunk(builder, fetchAllUsers, 'user');
         handleAsyncThunkNoPayload(builder, deleteAUser, 'deleteUser');
+        handleAsyncThunkNoPayload(builder, updateAUser, 'updateUser');
     }
 });
 

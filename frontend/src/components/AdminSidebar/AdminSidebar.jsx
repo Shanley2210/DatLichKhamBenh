@@ -11,6 +11,7 @@ import Cookies from 'js-cookie';
 import { useContext } from 'react';
 import { ToastContext } from '@contexts/ToastProvider';
 import { useNavigate } from 'react-router-dom';
+import { bufferToBase64Url } from '@utils/commonUtils';
 
 function AdminSidebar({ userData, view, setView }) {
     const { t } = useTranslation();
@@ -108,7 +109,7 @@ function AdminSidebar({ userData, view, setView }) {
             <button className={styles.value}>Notifications</button>
             <div className={styles.account}>
                 <div>
-                    <img src={userData.image} alt='' />
+                    <img src={bufferToBase64Url(userData.image)} alt='' />
                     <span>
                         {userData && userData.firstName
                             ? userData.firstName
