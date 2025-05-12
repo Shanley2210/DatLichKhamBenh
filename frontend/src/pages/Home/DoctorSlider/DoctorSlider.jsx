@@ -4,10 +4,12 @@ import 'slick-carousel/slick/slick-theme.css';
 import styles from './DoctorSlider.module.scss';
 import MainLayout from '@layouts/MainLayout/MainLayout';
 import MoreButton from '@components/MoreButton/MoreButton';
-import { doctors } from './constants.js';
 import { NextArrow, PrevArrow } from '@components/Arrow/Arrow';
+import { bufferToBase64Url } from '@utils/commonUtils';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
-function DoctorSlider() {
+function DoctorSlider({ data }) {
     const settings = {
         dots: false,
         infinite: true,
@@ -46,23 +48,40 @@ function DoctorSlider() {
         ]
     };
 
+    const dispath = useDispatch();
+    const { t } = useTranslation();
+
+    const { selectedLanguage } = useSelector((state) => state.language);
+
     return (
         <MainLayout>
             <div className={styles.sliderContainer}>
                 <div className={styles.headerTitle}>
-                    <div className={styles.title}>Bác Sĩ Nổi Bật</div>
+                    <div className={styles.title}>{t('slider.doctor')}</div>
                     <div>
                         <MoreButton />
                     </div>
                 </div>
                 <Slider {...settings}>
-                    {doctors?.map((doctor, index) => (
-                        <div key={index} className={styles.slideItem}>
-                            <img src={doctor.image} alt={doctor.name} />
-                            <p>{doctor.name}</p>
-                            <p>{doctor.specialty}</p>
-                        </div>
-                    ))}
+                    {data &&
+                        data.length > 0 &&
+                        data?.map((doctor) => (
+                            <div key={doctor.id} className={styles.slideItem}>
+                                <img
+                                    src={bufferToBase64Url(doctor.image)}
+                                    alt={
+                                        doctor.firstName + ' ' + doctor.lastName
+                                    }
+                                />
+                                <p>
+                                    {selectedLanguage === 'vi'
+                                        ? doctor.positionData.valueVi + ' - '
+                                        : doctor.positionData.valueEn + ' - '}
+                                    {doctor.firstName + ' ' + doctor.lastName}
+                                </p>
+                                <p>{doctor.specialty}</p>
+                            </div>
+                        ))}
                 </Slider>
             </div>
         </MainLayout>

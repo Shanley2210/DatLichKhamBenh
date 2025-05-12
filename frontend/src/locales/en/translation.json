@@ -90,5 +90,8 @@
         "PhD": "Doctor",
         "associateProfessor": "Associate Professor",
         "professor": "Professor"
+    },
+    "slider": {
+        "doctor": "Featured Doctor"
     }
 }

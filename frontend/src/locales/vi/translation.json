@@ -90,5 +90,8 @@
         "PhD": "Tiến sĩ",
         "associateProfessor": "Phó giáo sư",
         "professor": "Giáo sư"
+    },
+    "slider": {
+        "doctor": "Bác Sĩ Nổi Bật"
     }
 }

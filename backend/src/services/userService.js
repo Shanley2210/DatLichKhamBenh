@@ -29,7 +29,7 @@ const getAllUsers = (userId) => {
             if (userId === 'ALL') {
                 users = await db.User.findAll({
                     attributes: { exclude: ['password', 'refreshToken'] },
-                    order: [['createdAt', 'DESC']]
+                    order: [['updatedAt', 'DESC']]
                 });
             }
 

@@ -17,6 +17,7 @@ import {
     verifySelfOrAdmin,
     verifyToken
 } from '../middlewares/authenticateToken';
+import { getDoctorHome } from '../controllers/doctorController';
 
 const router = express.Router();
 
@@ -50,6 +51,9 @@ const initWebRoutes = (app) => {
 
     //allcodes api
     router.get('/api/allcodes', verifyAdmin, getAllCode);
+
+    //Doctor api
+    router.get('/api/top-doctor-home', getDoctorHome);
 
     //return
     return app.use('/', router);

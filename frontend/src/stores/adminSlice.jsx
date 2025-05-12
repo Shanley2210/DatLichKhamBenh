@@ -197,5 +197,6 @@ const adminSlide = createSlice({
     }
 });
 
-export const { clearGender, clearRoles, clearPosititions } = adminSlide.actions;
+export const { clearGender, clearRoles, clearPosititions, clearUser } =
+    adminSlide.actions;
 export default adminSlide.reducer;

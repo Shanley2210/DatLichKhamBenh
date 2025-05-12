@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import ScrollToTop from '@contexts/ScrollToTop';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import routers from '@/router/router';
@@ -14,6 +14,7 @@ function App() {
         (state) => state.language.selectedLanguage
     );
     const { i18n } = useTranslation();
+    const scrollRef = useRef();
 
     useEffect(() => {
         i18n.changeLanguage(selectedLanguage);
@@ -23,9 +24,12 @@ function App() {
         <>
             <ToastProvider>
                 <BrowserRouter>
-                    <Scrollbars style={{ width: '100vw', height: '100vh' }}>
+                    <Scrollbars
+                        ref={scrollRef}
+                        style={{ width: '100vw', height: '100vh' }}
+                    >
                         <Suspense fallback={<LoadingPage />}>
-                            <ScrollToTop />
+                            <ScrollToTop scrollRef={scrollRef} />
                             <LanguageProvider />
                             <Routes>
                                 {routers.map((item, index) => (
