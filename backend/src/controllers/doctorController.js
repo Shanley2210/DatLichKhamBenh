@@ -1,4 +1,9 @@
-import { getTopDoctorsHome } from '../services/doctorService';
+import {
+    getAllDoctors,
+    getDetailDoctor,
+    getTopDoctorsHome,
+    saveDetailInfoDoctor
+} from '../services/doctorService';
 
 const getDoctorHome = async (req, res) => {
     const limit = req.query.limit ? req.query.limit : 10;
@@ -16,4 +21,43 @@ const getDoctorHome = async (req, res) => {
     }
 };
 
-export { getDoctorHome };
+const getAllDoctor = async (req, res) => {
+    try {
+        const doctors = await getAllDoctors();
+
+        return res.status(200).json(doctors);
+    } catch (e) {
+        console.log('get all doctor error: ', e);
+        return res
+            .status(200)
+            .json({ errCode: -1, errMessage: 'Error from server' });
+    }
+};
+
+const postInfoDoctor = async (req, res) => {
+    try {
+        const response = await saveDetailInfoDoctor(req.body);
+
+        return res.status(200).json(response);
+    } catch (e) {
+        console.log('post infor doctor error: ', e);
+        return res
+            .status(200)
+            .json({ errCode: -1, errMessage: 'Error from server' });
+    }
+};
+
+const getDetailDoctorById = async (req, res) => {
+    try {
+        const response = await getDetailDoctor(req.query.id);
+
+        return res.status(200).json(response);
+    } catch (e) {
+        console.log('get detail doctor by id error: ', e);
+        return res
+            .status(200)
+            .json({ errCode: -1, errMessage: 'Error from server' });
+    }
+};
+
+export { getDoctorHome, getAllDoctor, postInfoDoctor, getDetailDoctorById };

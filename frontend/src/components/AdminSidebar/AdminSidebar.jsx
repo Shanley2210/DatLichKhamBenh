@@ -67,11 +67,23 @@ function AdminSidebar({ userData, view, setView }) {
                 </button>
             )}
 
-            {/* Clinic */}
+            {/* Doctor */}
             {userData.roleId === 'R1' && (
                 <button
                     className={cls(styles.value, {
                         [styles.active]: view === '3'
+                    })}
+                    onClick={() => setView('3')}
+                >
+                    <FaUsers /> {t('adminSidebar.doctor')}
+                </button>
+            )}
+
+            {/* Clinic */}
+            {userData.roleId === 'R1' && (
+                <button
+                    className={cls(styles.value, {
+                        [styles.active]: view === '4'
                     })}
                     onClick={() => setView('3')}
                 >
@@ -83,7 +95,7 @@ function AdminSidebar({ userData, view, setView }) {
             {userData.roleId === 'R1' && (
                 <button
                     className={cls(styles.value, {
-                        [styles.active]: view === '4'
+                        [styles.active]: view === '5'
                     })}
                     onClick={() => setView('4')}
                 >
@@ -95,7 +107,7 @@ function AdminSidebar({ userData, view, setView }) {
             {userData.roleId === 'R1' && (
                 <button
                     className={cls(styles.value, {
-                        [styles.active]: view === '5'
+                        [styles.active]: view === '6'
                     })}
                     onClick={() => setView('5')}
                 >

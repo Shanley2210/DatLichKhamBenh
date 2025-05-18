@@ -32,7 +32,8 @@
         "user2": "User - Redux",
         "clinic": "Quản lý phòng khám",
         "specialty": "Quản lý chuyên khoa",
-        "post": "Quản lý bài đăng"
+        "post": "Quản lý bài đăng",
+        "doctor": "Quản lý bác sĩ"
     },
     "login": {
         "title": "Đăng Nhập",
@@ -68,6 +69,9 @@
         "save": "Thêm",
         "edit": "Cập nhật"
     },
+    "manageDoctor": {
+        "title": "Quản lý bác sĩ"
+    },
     "tableUser": {
         "image": "Ảnh",
         "email": "Email",
@@ -91,7 +95,8 @@
         "associateProfessor": "Phó giáo sư",
         "professor": "Giáo sư"
     },
-    "slider": {
-        "doctor": "Bác Sĩ Nổi Bật"
+    "homePage": {
+        "doctor": "Bác Sĩ Nổi Bật",
+        "more": "Xem thêm"
     }
 }

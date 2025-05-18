@@ -61,7 +61,7 @@
             display: flex !important;
             align-items: center;
             justify-content: center;
-            background-color: white;    
+            background-color: white;
             width: 35px;
             height: 35px;
             color: black;
@@ -103,6 +103,10 @@
             li.slick-active button:before {
                 color: #2b6cb0;
             }
+        }
+
+        .slick-disabled {
+            display: none !important;
         }
     }
 }

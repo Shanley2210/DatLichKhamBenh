@@ -32,7 +32,8 @@
         "user2": "User Redux",
         "clinic": "Clinic Management",
         "specialty": "Specialty Management",
-        "post": "Post Management"
+        "post": "Post Management",
+        "doctor": "Doctor Management"
     },
     "login": {
         "title": "Login",
@@ -68,6 +69,9 @@
         "save": "Add",
         "edit": "Update"
     },
+    "manageDoctor": {
+        "title": "Doctor Management"
+    },
     "tableUser": {
         "image": "Image",
         "email": "Email",
@@ -91,7 +95,8 @@
         "associateProfessor": "Associate Professor",
         "professor": "Professor"
     },
-    "slider": {
-        "doctor": "Featured Doctor"
+    "homePage": {
+        "doctor": "Featured Doctor",
+        "more": "More info"
     }
 }

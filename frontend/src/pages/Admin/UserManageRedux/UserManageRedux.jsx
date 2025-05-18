@@ -18,6 +18,7 @@ import { ToastContext } from '@contexts/ToastProvider';
 import TableUser from '@containers/UserManageRedux/TableUser';
 import { bufferToBase64Url, getBase64 } from '@utils/commonUtils';
 import LoadingText from '@components/LoadingCommon/LoadingCommon';
+import Editor from '@components/Editor/Editor';
 
 function UserManageRedux() {
     const dispatch = useDispatch();
@@ -46,6 +47,7 @@ function UserManageRedux() {
     });
     const [isEdit, setIsEdit] = useState(false);
     const [userId, setUserId] = useState(null);
+    const [editorContent, setEditorContent] = useState('');
 
     const handleOnChangeImage = async (event) => {
         const data = event.target.files;

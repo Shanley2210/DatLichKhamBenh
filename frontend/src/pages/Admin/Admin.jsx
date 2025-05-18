@@ -9,6 +9,7 @@ import UserManageRedux from '@pages/Admin/UserManageRedux/UserManageRedux';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserInfo } from '@stores/userSlice';
 import LoadingPage from '@containers/LoadingPage/LoadingPage';
+import DoctorManage from '@pages/Admin/DoctorManage/DoctorManage';
 
 function Admin() {
     const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function Admin() {
                         <AdminHeader />
                         {view === '1' && <UserManage />}
                         {view === '2' && <UserManageRedux />}
+                        {view === '3' && <DoctorManage />}
                     </div>
                 </div>
             ) : (

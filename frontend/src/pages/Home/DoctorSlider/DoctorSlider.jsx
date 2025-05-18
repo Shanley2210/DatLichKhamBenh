@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 function DoctorSlider({ data }) {
     const settings = {
         dots: false,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 4,
@@ -57,7 +57,7 @@ function DoctorSlider({ data }) {
         <MainLayout>
             <div className={styles.sliderContainer}>
                 <div className={styles.headerTitle}>
-                    <div className={styles.title}>{t('slider.doctor')}</div>
+                    <div className={styles.title}>{t('homePage.doctor')}</div>
                     <div>
                         <MoreButton />
                     </div>
@@ -79,7 +79,7 @@ function DoctorSlider({ data }) {
                                         : doctor.positionData.valueEn + ' - '}
                                     {doctor.firstName + ' ' + doctor.lastName}
                                 </p>
-                                <p>{doctor.specialty}</p>
+                                <p>Cơ xương khớp</p>
                             </div>
                         ))}
                 </Slider>
