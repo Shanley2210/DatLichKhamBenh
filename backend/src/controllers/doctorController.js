@@ -1,4 +1,5 @@
 import {
+    createAppointmentPlan,
     getAllDoctors,
     getDetailDoctor,
     getTopDoctorsHome,
@@ -60,4 +61,23 @@ const getDetailDoctorById = async (req, res) => {
     }
 };
 
-export { getDoctorHome, getAllDoctor, postInfoDoctor, getDetailDoctorById };
+const createMedicalAppointmentPlan = async (req, res) => {
+    try {
+        const response = await createAppointmentPlan(req.body);
+
+        return res.status(200).json(response);
+    } catch (e) {
+        console.log('create medical appointment plan error: ', e);
+        return res
+            .status(200)
+            .json({ errCode: -1, errMessage: 'Error from server' });
+    }
+};
+
+export {
+    getDoctorHome,
+    getAllDoctor,
+    postInfoDoctor,
+    getDetailDoctorById,
+    createMedicalAppointmentPlan
+};

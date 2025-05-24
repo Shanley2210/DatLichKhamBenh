@@ -1,8 +1,11 @@
 import styles from './Header.module.scss';
 import { IoMenu } from 'react-icons/io5';
 import logo from '@/assets/icons/logo.svg';
+import LanguageDropdown from '@components/LanguageDropdown/LanguageDropdown';
+import { useTranslation } from 'react-i18next';
 
 function Header() {
+    const { t } = useTranslation();
     return (
         <div className={styles.headerContainer}>
             <div className={styles.headerContent}>
@@ -16,31 +19,35 @@ function Header() {
                 <div className={styles.centerContent}>
                     <div className={styles.childContent}>
                         <div>
-                            <strong>Chuyên khoa</strong>
+                            <strong>{t('header.specialty')}</strong>
                         </div>
-                        <div>Tìm bác sĩ theo chuyên khoa</div>
+                        <div>{t('header.searchSpecialty')}</div>
                     </div>
 
                     <div className={styles.childContent}>
                         <div>
-                            <strong>Cơ sở y tế</strong>
+                            <strong>{t('header.healthcareFacility')}</strong>
                         </div>
-                        <div>Chọn bệnh viện phòng khám</div>
+                        <div>{t('header.choose')}</div>
                     </div>
 
                     <div className={styles.childContent}>
                         <div>
-                            <strong>Bác sĩ</strong>
+                            <strong>{t('header.doctor')}</strong>
                         </div>
-                        <div>Chọn bác sĩ giỏi</div>
+                        <div>{t('header.chooseDoctor')}</div>
                     </div>
 
                     <div className={styles.childContent}>
                         <div>
-                            <strong>Gói khám</strong>
+                            <strong>{t('header.medicalPackage')}</strong>
                         </div>
-                        <div>Khám sức khỏe tổng quát</div>
+                        <div>{t('header.general')}</div>
                     </div>
+                </div>
+
+                <div className={styles.rightContent}>
+                    <LanguageDropdown />
                 </div>
             </div>
         </div>

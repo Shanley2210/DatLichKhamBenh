@@ -1,0 +1,43 @@
+@use '@styles/variable.module.scss' as *;
+@use '@styles/mixin.module.scss' as mixin;
+
+.planContainer {
+    padding: 0 20px;
+
+    .title {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .content {
+        @include mixin.flex_box_custom(flex-start, center, 20px);
+
+        .date {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pickHour {
+            @include mixin.flex_box_custom(center, center, 10px);
+
+            flex-wrap: wrap;
+            margin-top: 50px;
+
+            .buttonTime {
+                border: 1px solid #e1e1e1;
+                background: none;
+                padding: 8px 12px;
+                border-radius: 3px;
+                cursor: pointer;
+
+                &:hover {
+                    background: #e1e1e1;
+                }
+
+                &.active {
+                    background: #b6b6b6;
+                }
+            }
+        }
+    }
+}

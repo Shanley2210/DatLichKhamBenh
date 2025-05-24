@@ -8,6 +8,16 @@
         "partner": "Hợp tác",
         "appointment": "Lịch hẹn"
     },
+    "header": {
+        "specialty": "Chuyên khoa",
+        "searchSpecialty": "Tìm bác sĩ theo chuyên khoa",
+        "healthcareFacility": "Cơ sở y tế",
+        "choose": "Chọn bệnh viện phòng khám",
+        "doctor": "Bác sĩ",
+        "chooseDoctor": "Chọn bác sĩ",
+        "medicalPackage": "Gói khám",
+        "general": "Khám sức khỏe tổng quát"
+    },
     "banner": {
         "title": "NỀN TẢNG Y TẾ",
         "description": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
@@ -28,12 +38,13 @@
         "button": "Trở về trang chủ"
     },
     "adminSidebar": {
-        "user": "Quản lý User",
+        "user": "Quản Lý User",
         "user2": "User - Redux",
-        "clinic": "Quản lý phòng khám",
-        "specialty": "Quản lý chuyên khoa",
-        "post": "Quản lý bài đăng",
-        "doctor": "Quản lý bác sĩ"
+        "clinic": "Quản Lý Phòng Khám",
+        "specialty": "Quản Lý Chuyên Khoa",
+        "post": "Quản Lý Bài Đăng",
+        "doctor": "Quản Lý Bác Sĩ",
+        "plan": "Kế Hoạch Khám Bệnh"
     },
     "login": {
         "title": "Đăng Nhập",
@@ -70,7 +81,20 @@
         "edit": "Cập nhật"
     },
     "manageDoctor": {
-        "title": "Quản lý bác sĩ"
+        "title": "Quản lý bác sĩ",
+        "select": "Chọn bác sĩ",
+        "select2": "Chọn...",
+        "info": "Thông tin bác sĩ",
+        "info2": "Nhập thông tin bác sĩ...",
+        "save": "Lưu",
+        "edit": "Sửa"
+    },
+    "managePlan": {
+        "title": "Kế Hoạch Khám Bệnh",
+        "selectDoctor": "Chọn bác sĩ",
+        "select2": "Chọn...",
+        "selectDate": "Chọn ngày",
+        "save": "Lưu"
     },
     "tableUser": {
         "image": "Ảnh",

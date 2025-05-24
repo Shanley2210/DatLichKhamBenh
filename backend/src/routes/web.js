@@ -14,10 +14,12 @@ import {
 import { getAllCode } from '../controllers/allcodeController';
 import {
     verifyAdmin,
+    verifyAdminOrDoctor,
     verifySelfOrAdmin,
     verifyToken
 } from '../middlewares/authenticateToken';
 import {
+    createMedicalAppointmentPlan,
     getAllDoctor,
     getDetailDoctorById,
     getDoctorHome,
@@ -55,13 +57,18 @@ const initWebRoutes = (app) => {
     router.get('/api/get-user-info', verifyToken, handleGetUserInfo);
 
     //allcodes api
-    router.get('/api/allcodes', verifyAdmin, getAllCode);
+    router.get('/api/allcodes', verifyToken, getAllCode);
 
     //Doctor api
     router.get('/api/top-doctor-home', getDoctorHome);
     router.get('/api/get-all-doctors', getAllDoctor);
     router.post('/api/create-info-doctor', verifyAdmin, postInfoDoctor);
     router.get('/api/get-detail-doctor', getDetailDoctorById);
+    router.post(
+        '/api/create-medical-appointment-plan',
+        verifyAdminOrDoctor,
+        createMedicalAppointmentPlan
+    );
 
     //return
     return app.use('/', router);

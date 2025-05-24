@@ -84,6 +84,11 @@ function Login() {
 
                         if (res.data.userData.roleId === 'R1') {
                             navigate('/admin');
+                            localStorage.setItem('adminView', 1);
+                        }
+                        if (res.data.userData.roleId === 'R2') {
+                            navigate('/admin');
+                            localStorage.setItem('adminView', 7);
                         }
                     }
                 })

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserInfo } from '@stores/userSlice';
 import LoadingPage from '@containers/LoadingPage/LoadingPage';
 import DoctorManage from '@pages/Admin/DoctorManage/DoctorManage';
+import PlanManagement from '@pages/Admin/PlanManagement/PlanManagement';
 
 function Admin() {
     const dispatch = useDispatch();
@@ -46,6 +47,12 @@ function Admin() {
                         {view === '1' && <UserManage />}
                         {view === '2' && <UserManageRedux />}
                         {view === '3' && <DoctorManage />}
+                        {view === '7' && (
+                            <PlanManagement
+                                roleId={userInfo.roleId}
+                                id={userInfo.id}
+                            />
+                        )}
                     </div>
                 </div>
             ) : (

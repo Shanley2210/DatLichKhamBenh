@@ -1,0 +1,43 @@
+@use '@styles/variable.module.scss' as *;
+@use '@styles/mixin.module.scss' as mixin;
+
+.containerDetail {
+    margin-top: 100px;
+    margin-bottom: 50px;
+
+    .navigatation {
+        color: blue;
+    }
+
+    .content {
+        .doctorInfo {
+            @include mixin.flex_box_custom(flex-start, center, 2rem);
+
+            .avatar {
+                @include mixin.flex_box_custom(center, center);
+
+                img {
+                    width: 170px;
+                    border-radius: 50%;
+                }
+            }
+
+            .doctorDescription {
+                margin-right: 2rem;
+                h3 {
+                    font-weight: 600;
+                }
+
+                p {
+                    color: #555;
+                }
+            }
+        }
+
+        .doctorSchedule {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ccc;
+        }
+    }
+}

@@ -59,6 +59,10 @@
         }
 
         .rightContent {
+            @include mixin.flex_box_custom(flex-end, center, 20px);
+            justify-content: center;
+            align-items: center;
+
             user-select: none;
         }
     }

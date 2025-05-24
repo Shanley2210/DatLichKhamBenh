@@ -81,6 +81,29 @@ export const fetchPosititions = createAsyncThunk(
     }
 );
 
+export const fetchTime = createAsyncThunk(
+    'admin/fetchTime',
+    async (_, thunkAPI) => {
+        try {
+            const token = Cookies.get('token');
+
+            if (!token) {
+                return thunkAPI.rejectWithValue('Invalid token');
+            }
+
+            const res = await getAllCodes('time', token);
+
+            if (res && res.data.errCode === 0) {
+                return res.data.data;
+            } else {
+                return thunkAPI.rejectWithValue(res.data.errMessage);
+            }
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message || 'Undefined error');
+        }
+    }
+);
+
 export const createNewUser = createAsyncThunk(
     'admin/createNewUser',
     async (data, thunkAPI) => {
@@ -167,6 +190,7 @@ const adminSlide = createSlice({
         genders: [],
         roles: [],
         posititions: [],
+        time: [],
         user: [],
         loading: false,
         error: null
@@ -189,6 +213,7 @@ const adminSlide = createSlice({
         handleAsyncThunk(builder, fetchGender, 'genders');
         handleAsyncThunk(builder, fetchRoles, 'roles');
         handleAsyncThunk(builder, fetchPosititions, 'posititions');
+        handleAsyncThunk(builder, fetchTime, 'time');
 
         handleAsyncThunkNoPayload(builder, createNewUser, 'createNewUser');
         handleAsyncThunk(builder, fetchAllUsers, 'user');

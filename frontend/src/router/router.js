@@ -5,6 +5,10 @@ const routers = [
         path: '/',
         component: lazy(() => import('@pages/Home/Home'))
     },
+    {
+        path: '/detail-doctor/:id',
+        component: lazy(() => import('@pages/DetailDoctor/DetailDoctor'))
+    },
 
     {
         path: '/auth/login',

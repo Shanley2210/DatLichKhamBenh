@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
     allDoctors,
+    createMedicalAppointmentPlan,
+    getDetailDoctor,
     saveDoctorInfo,
     topDoctorsHome
 } from '@services/doctorService';
@@ -20,7 +22,7 @@ export const fetchTopDoctorsHome = createAsyncThunk(
             } else {
                 return thunkAPI.rejectWithValue(res.data.errMessage);
             }
-        } catch (error) {
+        } catch (e) {
             return thunkAPI.rejectWithValue(e.message || 'Undefined error');
         }
     }
@@ -37,7 +39,7 @@ export const fetchAllDoctors = createAsyncThunk(
             } else {
                 return thunkAPI.rejectWithValue(res.data.errMessage);
             }
-        } catch (error) {
+        } catch (e) {
             return thunkAPI.rejectWithValue(e.message || 'Undefined error');
         }
     }
@@ -50,7 +52,33 @@ export const fetchSaveDetailInfoDoctor = createAsyncThunk(
             const res = await saveDoctorInfo(data);
 
             return res.data;
-        } catch (error) {
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message || 'Undefined error');
+        }
+    }
+);
+
+export const fetchDetailInfoDoctor = createAsyncThunk(
+    'doctor/fetchDetailInfoDoctor',
+    async (id, thunkAPI) => {
+        try {
+            const res = await getDetailDoctor(id);
+
+            return res.data.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message || 'Undefined error');
+        }
+    }
+);
+
+export const fetchMedicalAppointmentPlan = createAsyncThunk(
+    'doctor/fetchMedicalAppointmentPlan',
+    async (data, thunkAPI) => {
+        try {
+            const res = await createMedicalAppointmentPlan(data);
+
+            return res.data;
+        } catch (e) {
             return thunkAPI.rejectWithValue(e.message || 'Undefined error');
         }
     }
@@ -60,7 +88,8 @@ const doctorSlice = createSlice({
     name: 'doctor',
     initialState: {
         topDoctorsHome: [],
-        allDoctors: []
+        allDoctors: [],
+        detailInfo: null
     },
     reducers: {
         clearTopDoctorsHome: (state) => {
@@ -70,11 +99,17 @@ const doctorSlice = createSlice({
     extraReducers: (builder) => {
         handleAsyncThunk(builder, fetchTopDoctorsHome, 'topDoctorsHome');
         handleAsyncThunk(builder, fetchAllDoctors, 'allDoctors');
+        handleAsyncThunk(builder, fetchDetailInfoDoctor, 'detailInfo');
 
         handleAsyncThunkNoPayload(
             builder,
             fetchSaveDetailInfoDoctor,
             'saveDetailInfoDoctor'
+        );
+        handleAsyncThunkNoPayload(
+            builder,
+            fetchMedicalAppointmentPlan,
+            'medicalAppointmentPlan'
         );
     }
 });

@@ -1,4 +1,10 @@
 import db from '../models/index';
+import dotenv from 'dotenv';
+import moment from 'moment';
+import _, { at } from 'lodash';
+import { Op } from 'sequelize';
+
+dotenv.config();
 
 const getTopDoctorsHome = (limitInput) => {
     return new Promise(async (resolve, reject) => {
@@ -82,19 +88,34 @@ const saveDetailInfoDoctor = (inputData) => {
             if (
                 !inputData.doctorId ||
                 !inputData.contentHTML ||
-                !inputData.contentMarkdown
+                !inputData.contentMarkdown ||
+                !inputData.action
             ) {
                 return resolve({
                     errCode: 1,
                     errMessage: 'Missing required parameters!'
                 });
             } else {
-                await db.MarkDown.create({
-                    contentHTML: inputData.contentHTML,
-                    contentMarkdown: inputData.contentMarkdown,
-                    description: inputData.description,
-                    doctorId: inputData.doctorId
-                });
+                if (inputData.action === 'CREATE') {
+                    await db.MarkDown.create({
+                        contentHTML: inputData.contentHTML,
+                        contentMarkdown: inputData.contentMarkdown,
+                        description: inputData.description,
+                        doctorId: inputData.doctorId
+                    });
+                } else if (inputData.action === 'EDIT') {
+                    const markDown = await db.MarkDown.findOne({
+                        where: { doctorId: inputData.doctorId },
+                        raw: false
+                    });
+
+                    if (markDown) {
+                        markDown.contentHTML = inputData.contentHTML;
+                        markDown.contentMarkdown = inputData.contentMarkdown;
+                        markDown.description = inputData.description;
+                        await markDown.save();
+                    }
+                }
 
                 return resolve({
                     errCode: 0,
@@ -171,9 +192,82 @@ const getDetailDoctor = (inputId) => {
     });
 };
 
+const createAppointmentPlan = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data) {
+                return resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameters!'
+                });
+            }
+
+            const arrPlan = [];
+
+            if (data && data.length > 0) {
+                for (let i = 0; i < data.length; i++) {
+                    const formatDate = moment(
+                        data[i].date,
+                        'DD/MM/YYYY'
+                    ).startOf('day');
+
+                    arrPlan.push({
+                        doctorId: data[i].doctorId,
+                        date: formatDate,
+                        timeType: data[i].time,
+                        maxNumber: process.env.MAX_NUMBER
+                    });
+                }
+            }
+
+            const existingSchedules = await db.Schedule.findAll({
+                where: {
+                    [Op.or]: arrPlan.map((item) => ({
+                        doctorId: item.doctorId,
+                        date: item.date,
+                        timeType: item.timeType
+                    }))
+                },
+                attributes: ['doctorId', 'date', 'timeType', 'maxNumber']
+            });
+
+            const toCreate = _.differenceWith(
+                arrPlan,
+                existingSchedules,
+                (a, b) => {
+                    return (
+                        a.doctorId === b.doctorId &&
+                        a.timeType === b.timeType &&
+                        moment(a.date).isSame(b.date, 'day')
+                    );
+                }
+            );
+
+            if (toCreate <= 0) {
+                return resolve({
+                    errCode: 2,
+                    errMessage: 'Data input invalid'
+                });
+            }
+
+            if (toCreate && toCreate.length > 0) {
+                await db.Schedule.bulkCreate(toCreate);
+            }
+
+            return resolve({
+                errCode: 0,
+                message: 'OK'
+            });
+        } catch (e) {
+            return reject(e);
+        }
+    });
+};
+
 export {
     getTopDoctorsHome,
     getAllDoctors,
     saveDetailInfoDoctor,
-    getDetailDoctor
+    getDetailDoctor,
+    createAppointmentPlan
 };

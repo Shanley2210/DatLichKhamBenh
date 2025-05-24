@@ -13,4 +13,18 @@ const saveDoctorInfo = async (data) => {
     return await axios.post('/api/create-info-doctor', data);
 };
 
-export { topDoctorsHome, allDoctors, saveDoctorInfo };
+const getDetailDoctor = async (id) => {
+    return await axios.get(`/api/get-detail-doctor?id=${id}`);
+};
+
+const createMedicalAppointmentPlan = async (data) => {
+    return await axios.post('/api/create-medical-appointment-plan', data);
+};
+
+export {
+    topDoctorsHome,
+    allDoctors,
+    saveDoctorInfo,
+    getDetailDoctor,
+    createMedicalAppointmentPlan
+};

@@ -8,6 +8,7 @@ import { NextArrow, PrevArrow } from '@components/Arrow/Arrow';
 import { bufferToBase64Url } from '@utils/commonUtils';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 function DoctorSlider({ data }) {
     const settings = {
@@ -50,6 +51,7 @@ function DoctorSlider({ data }) {
 
     const dispath = useDispatch();
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const { selectedLanguage } = useSelector((state) => state.language);
 
@@ -66,7 +68,13 @@ function DoctorSlider({ data }) {
                     {data &&
                         data.length > 0 &&
                         data?.map((doctor) => (
-                            <div key={doctor.id} className={styles.slideItem}>
+                            <div
+                                key={doctor.id}
+                                className={styles.slideItem}
+                                onClick={() =>
+                                    navigate(`/detail-doctor/${doctor.id}`)
+                                }
+                            >
                                 <img
                                     src={bufferToBase64Url(doctor.image)}
                                     alt={

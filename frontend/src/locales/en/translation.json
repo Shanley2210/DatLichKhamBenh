@@ -8,6 +8,16 @@
         "partner": "Partner",
         "appointment": "Appointment"
     },
+    "header": {
+        "specialty": "Specialty",
+        "searchSpecialty": "Find doctors by specialty",
+        "healthcareFacility": "Healthcare Facility",
+        "choose": "Select hospital or clinic",
+        "doctor": "Doctor",
+        "chooseDoctor": "Select doctor",
+        "medicalPackage": "Medical Package",
+        "general": "General health check-up"
+    },
     "banner": {
         "title": "HEALTHCARE PLATFORM",
         "description": "COMPREHENSIVE HEALTHCARE",
@@ -33,7 +43,8 @@
         "clinic": "Clinic Management",
         "specialty": "Specialty Management",
         "post": "Post Management",
-        "doctor": "Doctor Management"
+        "doctor": "Doctor Management",
+        "plan": "Medical Appointment Plan"
     },
     "login": {
         "title": "Login",
@@ -70,7 +81,20 @@
         "edit": "Update"
     },
     "manageDoctor": {
-        "title": "Doctor Management"
+        "title": "Doctor Management",
+        "select": "Select doctor",
+        "select2": "Select...",
+        "info": "Doctor information",
+        "info2": "Enter doctor information...",
+        "save": "Save",
+        "edit": "Update"
+    },
+    "managePlan": {
+        "title": "Medical Appointment Plan",
+        "selectDoctor": "Select doctor",
+        "select2": "Select...",
+        "selectDate": "Select date",
+        "save": "Save"
     },
     "tableUser": {
         "image": "Image",

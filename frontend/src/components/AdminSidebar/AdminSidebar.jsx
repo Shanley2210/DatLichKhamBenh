@@ -12,6 +12,8 @@ import { useContext } from 'react';
 import { ToastContext } from '@contexts/ToastProvider';
 import { useNavigate } from 'react-router-dom';
 import { bufferToBase64Url } from '@utils/commonUtils';
+import { FaUserDoctor } from 'react-icons/fa6';
+import { GrPlan } from 'react-icons/gr';
 
 function AdminSidebar({ userData, view, setView }) {
     const { t } = useTranslation();
@@ -75,7 +77,7 @@ function AdminSidebar({ userData, view, setView }) {
                     })}
                     onClick={() => setView('3')}
                 >
-                    <FaUsers /> {t('adminSidebar.doctor')}
+                    <FaUserDoctor /> {t('adminSidebar.doctor')}
                 </button>
             )}
 
@@ -85,7 +87,7 @@ function AdminSidebar({ userData, view, setView }) {
                     className={cls(styles.value, {
                         [styles.active]: view === '4'
                     })}
-                    onClick={() => setView('3')}
+                    onClick={() => setView('4')}
                 >
                     <FaClinicMedical /> {t('adminSidebar.clinic')}
                 </button>
@@ -97,7 +99,7 @@ function AdminSidebar({ userData, view, setView }) {
                     className={cls(styles.value, {
                         [styles.active]: view === '5'
                     })}
-                    onClick={() => setView('4')}
+                    onClick={() => setView('5')}
                 >
                     <MdLocalHospital /> {t('adminSidebar.specialty')}
                 </button>
@@ -109,16 +111,26 @@ function AdminSidebar({ userData, view, setView }) {
                     className={cls(styles.value, {
                         [styles.active]: view === '6'
                     })}
-                    onClick={() => setView('5')}
+                    onClick={() => setView('6')}
                 >
                     <BsFillFileEarmarkPostFill />
                     {t('adminSidebar.post')}
                 </button>
             )}
 
-            <button className={styles.value}>Appearance</button>
-            <button className={styles.value}>Accessibility</button>
-            <button className={styles.value}>Notifications</button>
+            {/* Plan */}
+            {(userData.roleId === 'R1' || userData.roleId === 'R2') && (
+                <button
+                    className={cls(styles.value, {
+                        [styles.active]: view === '7'
+                    })}
+                    onClick={() => setView('7')}
+                >
+                    <GrPlan />
+                    {t('adminSidebar.plan')}
+                </button>
+            )}
+
             <div className={styles.account}>
                 <div>
                     <img src={bufferToBase64Url(userData.image)} alt='' />
