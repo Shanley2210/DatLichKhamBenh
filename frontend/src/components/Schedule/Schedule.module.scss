@@ -1,0 +1,53 @@
+@use '@styles/variable.module.scss' as *;
+@use '@styles/mixin.module.scss' as mixin;
+
+.scheduleContainer {
+    width: 50%;
+
+    .selectDay {
+        padding-bottom: 10px;
+
+        select {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            outline: none;
+            padding: 5px 0px;
+            font-weight: 600;
+            color: #337ab7;
+        }
+    }
+
+    .allTimes {
+        .timeText {
+            margin: 10px 0;
+
+            svg {
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+                margin-right: 5px;
+            }
+
+            span {
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+        }
+
+        .timesContent {
+            @include mixin.flex_box_custom(flex-start, center, 10px);
+
+            flex-wrap: wrap;
+            button {
+                padding: 8px 10px;
+                border: none;
+                outline: none;
+                background-color: #f0f0f0;
+                min-width: 180px;
+
+                &:hover {
+                    background-color: #e0e0e0;
+                }
+            }
+        }
+    }
+}

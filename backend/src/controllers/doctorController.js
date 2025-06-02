@@ -2,6 +2,7 @@ import {
     createAppointmentPlan,
     getAllDoctors,
     getDetailDoctor,
+    getScheduleDate,
     getTopDoctorsHome,
     saveDetailInfoDoctor
 } from '../services/doctorService';
@@ -74,10 +75,27 @@ const createMedicalAppointmentPlan = async (req, res) => {
     }
 };
 
+const getScheduleByDate = async (req, res) => {
+    try {
+        const response = await getScheduleDate(
+            req.query.doctorId,
+            req.query.date
+        );
+
+        return res.status(200).json(response);
+    } catch (e) {
+        console.log('get schedule by date error: ', e);
+        return res
+            .status(200)
+            .json({ errCode: -1, errMessage: 'Error from server' });
+    }
+};
+
 export {
     getDoctorHome,
     getAllDoctor,
     postInfoDoctor,
     getDetailDoctorById,
-    createMedicalAppointmentPlan
+    createMedicalAppointmentPlan,
+    getScheduleByDate
 };

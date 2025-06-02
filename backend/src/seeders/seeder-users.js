@@ -6,11 +6,11 @@ module.exports = {
         return queryInterface.bulkInsert('Users', [
             {
                 id: 1,
-                email: 'admin@gmail.com',
+                email: 'shanley@admin.com',
                 password:
                     '$2y$10$TPqUpEik3.fUmeHBID3sQ.d3v09BSoSH1IiHCbRmt9ULbyALt.CPu',
                 refreshToken: '',
-                firstName: 'Nguyễn Hiếu',
+                firstName: 'Admin',
                 lastName: 'Shanley',
                 phoneNumber: '0123456789',
                 address: 'Hồ Chí Minh',

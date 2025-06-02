@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchDetailInfoDoctor } from '@stores/doctorSlice';
 import { bufferToBase64Url } from '@utils/commonUtils';
+import Schedule from '@components/Schedule/Schedule';
 
 function DetailDoctor() {
     const { id } = useParams();
@@ -39,6 +40,7 @@ function DetailDoctor() {
                                     alt=''
                                 />
                             </div>
+
                             <div className={styles.doctorDescription}>
                                 <h3>
                                     {selectedLanguage === 'vi'
@@ -61,6 +63,11 @@ function DetailDoctor() {
                                     }}
                                 ></p>
                             </div>
+                        </div>
+
+                        <div className={styles.contentSchedule}>
+                            <Schedule doctorId={id} />
+                            <div>Địa chỉ khám</div>
                         </div>
 
                         <div className={styles.doctorSchedule}>

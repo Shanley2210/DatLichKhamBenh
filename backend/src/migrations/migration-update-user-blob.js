@@ -2,7 +2,7 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
         return Promise.all([
             queryInterface.changeColumn('Users', 'image', {
-                type: Sequelize.MEDIUMBLOB,
+                type: Sequelize.BLOB('long'),
                 allowNull: true
             })
         ]);
@@ -10,7 +10,7 @@ module.exports = {
     down: async (queryInterface, Sequelize) => {
         return Promise.all([
             queryInterface.changeColumn('Users', 'image', {
-                type: Sequelize.MEDIUMBLOB,
+                type: Sequelize.BLOB('long'),
                 allowNull: true
             })
         ]);

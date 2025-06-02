@@ -21,10 +21,17 @@ const createMedicalAppointmentPlan = async (data) => {
     return await axios.post('/api/create-medical-appointment-plan', data);
 };
 
+const getScheduleByDate = async (doctorId, date) => {
+    return await axios.get(
+        `/api/get-schedule-doctor-by-date?doctorId=${doctorId}&date=${date}`
+    );
+};
+
 export {
     topDoctorsHome,
     allDoctors,
     saveDoctorInfo,
     getDetailDoctor,
-    createMedicalAppointmentPlan
+    createMedicalAppointmentPlan,
+    getScheduleByDate
 };

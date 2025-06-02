@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ToastContext } from '@contexts/ToastProvider';
 import {
     fetchAllDoctors,
-    fetchMedicalAppointmentPlan
+    fetchMedicalAppointmentPlan,
+    fetchScheduleByDate
 } from '@stores/doctorSlice';
 import DatePicker from 'react-datepicker';
 import { vi, enUS } from 'date-fns/locale';
 import SaveButton from '@components/SaveButton/SaveButton';
 import { fetchTime } from '@stores/adminSlice';
+import { startOfDay } from 'date-fns';
 
 function PlanManagement({ roleId, id }) {
     const { t } = useTranslation();
@@ -23,6 +25,7 @@ function PlanManagement({ roleId, id }) {
     const { allDoctors } = useSelector((state) => state.doctor);
     const { selectedLanguage } = useSelector((state) => state.language);
     const { time } = useSelector((state) => state.admin);
+    const { schedule } = useSelector((state) => state.doctor);
 
     const [doctorOptions, setDoctorOptions] = useState([]);
     const [startDate, setStartDate] = useState(null);
@@ -45,11 +48,9 @@ function PlanManagement({ roleId, id }) {
     };
 
     const handleDateSelect = (date) => {
-        const formatted = date.toLocaleDateString('vi-VN', {
-            timeZone: 'Asia/Ho_Chi_Minh'
-        });
-
-        setSelectedDate(formatted);
+        const startOfDayDate = startOfDay(date);
+        const timestamp = startOfDayDate.getTime();
+        setSelectedDate(timestamp);
     };
 
     const handleSelectTime = (item) => {
@@ -101,8 +102,6 @@ function PlanManagement({ roleId, id }) {
                 });
             });
 
-            console.log(arrPlan);
-
             const res = await dispatch(fetchMedicalAppointmentPlan(arrPlan));
 
             if (res.payload.errCode === 0) {
@@ -124,11 +123,27 @@ function PlanManagement({ roleId, id }) {
     useEffect(() => {
         dispatch(fetchAllDoctors());
         dispatch(fetchTime());
-    }, [dispatch]);
+        dispatch(
+            fetchScheduleByDate({
+                doctorId: selectedDoctor?.value,
+                date: selectedDate
+            })
+        );
+    }, [dispatch, selectedDoctor, selectedDate]);
 
     useEffect(() => {
         listDoctors();
     }, [allDoctors]);
+
+    useEffect(() => {
+        if (schedule && schedule.length > 0) {
+            const selectedTimes = schedule.map((item) => ({
+                id: item.id,
+                timeType: item.timeType
+            }));
+            setSelectedTimes(selectedTimes);
+        }
+    }, [schedule]);
 
     return (
         <div className={styles.planContainer}>
@@ -174,7 +189,7 @@ function PlanManagement({ roleId, id }) {
                     <div className={cls(styles.pickHour)}>
                         {time.map((item) => {
                             const isSelected = selectedTimes.some(
-                                (t) => t.id === item.id
+                                (t) => t.timeType === item.key
                             );
                             return (
                                 <button

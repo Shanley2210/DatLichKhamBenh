@@ -1,7 +1,7 @@
 import db from '../models/index';
 import dotenv from 'dotenv';
 import moment from 'moment';
-import _, { at } from 'lodash';
+import _, { at, includes } from 'lodash';
 import { Op } from 'sequelize';
 
 dotenv.config();
@@ -206,14 +206,9 @@ const createAppointmentPlan = (data) => {
 
             if (data && data.length > 0) {
                 for (let i = 0; i < data.length; i++) {
-                    const formatDate = moment(
-                        data[i].date,
-                        'DD/MM/YYYY'
-                    ).startOf('day');
-
                     arrPlan.push({
                         doctorId: data[i].doctorId,
-                        date: formatDate,
+                        date: data[i].date,
                         timeType: data[i].time,
                         maxNumber: process.env.MAX_NUMBER
                     });
@@ -238,7 +233,7 @@ const createAppointmentPlan = (data) => {
                     return (
                         a.doctorId === b.doctorId &&
                         a.timeType === b.timeType &&
-                        moment(a.date).isSame(b.date, 'day')
+                        moment(Number(a.date)).isSame(Number(b.date), 'day')
                     );
                 }
             );
@@ -264,10 +259,55 @@ const createAppointmentPlan = (data) => {
     });
 };
 
+const getScheduleDate = (doctorId, date) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!doctorId || !date) {
+                return resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameters!'
+                });
+            }
+
+            const dataSchedule = await db.Schedule.findAll({
+                where: {
+                    doctorId: doctorId,
+                    date: date
+                },
+                include: [
+                    {
+                        model: db.AllCode,
+                        as: 'timeTypeData',
+                        attributes: ['valueEn', 'valueVi']
+                    }
+                ],
+                raw: true,
+                nest: true
+            });
+
+            if (!dataSchedule || dataSchedule.length === 0) {
+                return resolve({
+                    errCode: 2,
+                    errMessage: 'Data not found'
+                });
+            }
+
+            return resolve({
+                errCode: 0,
+                message: 'OK',
+                data: dataSchedule
+            });
+        } catch (e) {
+            return reject(e);
+        }
+    });
+};
+
 export {
     getTopDoctorsHome,
     getAllDoctors,
     saveDetailInfoDoctor,
     getDetailDoctor,
-    createAppointmentPlan
+    createAppointmentPlan,
+    getScheduleDate
 };
