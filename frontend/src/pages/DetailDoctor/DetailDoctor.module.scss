@@ -37,14 +37,13 @@
         .contentSchedule {
             @include mixin.flex_box_custom(flex-start, center);
 
-            margin: 1rem 0;
+            margin: 1rem 0 0 0;
             padding: 1rem 0;
             height: 100%;
         }
 
         .doctorSchedule {
-            margin-top: 2rem;
-            padding-top: 2rem;
+            padding: 2rem 0;
             border-top: 1px solid #ccc;
         }
     }

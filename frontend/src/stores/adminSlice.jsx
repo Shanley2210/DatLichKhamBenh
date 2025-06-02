@@ -184,6 +184,75 @@ export const updateAUser = createAsyncThunk(
     }
 );
 
+export const fetchPrices = createAsyncThunk(
+    'admin/fetchPrices',
+    async (_, thunkAPI) => {
+        try {
+            const token = Cookies.get('token');
+
+            if (!token) {
+                return thunkAPI.rejectWithValue('Invalid token');
+            }
+
+            const res = await getAllCodes('price', token);
+
+            if (res && res.data.errCode === 0) {
+                return res.data.data;
+            } else {
+                return thunkAPI.rejectWithValue(res.data.errMessage);
+            }
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message || 'Undefined error');
+        }
+    }
+);
+
+export const fetchMethods = createAsyncThunk(
+    'admin/fetchMethods',
+    async (_, thunkAPI) => {
+        try {
+            const token = Cookies.get('token');
+
+            if (!token) {
+                return thunkAPI.rejectWithValue('Invalid token');
+            }
+
+            const res = await getAllCodes('payment', token);
+
+            if (res && res.data.errCode === 0) {
+                return res.data.data;
+            } else {
+                return thunkAPI.rejectWithValue(res.data.errMessage);
+            }
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message || 'Undefined error');
+        }
+    }
+);
+
+export const fetchProvinces = createAsyncThunk(
+    'admin/fetchProvinces',
+    async (_, thunkAPI) => {
+        try {
+            const token = Cookies.get('token');
+
+            if (!token) {
+                return thunkAPI.rejectWithValue('Invalid token');
+            }
+
+            const res = await getAllCodes('province', token);
+
+            if (res && res.data.errCode === 0) {
+                return res.data.data;
+            } else {
+                return thunkAPI.rejectWithValue(res.data.errMessage);
+            }
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message || 'Undefined error');
+        }
+    }
+);
+
 const adminSlide = createSlice({
     name: 'admin',
     initialState: {
@@ -192,6 +261,10 @@ const adminSlide = createSlice({
         posititions: [],
         time: [],
         user: [],
+        prices: [],
+        payments: [],
+        provinces: [],
+
         loading: false,
         error: null
     },
@@ -214,6 +287,9 @@ const adminSlide = createSlice({
         handleAsyncThunk(builder, fetchRoles, 'roles');
         handleAsyncThunk(builder, fetchPosititions, 'posititions');
         handleAsyncThunk(builder, fetchTime, 'time');
+        handleAsyncThunk(builder, fetchPrices, 'prices');
+        handleAsyncThunk(builder, fetchMethods, 'payments');
+        handleAsyncThunk(builder, fetchProvinces, 'provinces');
 
         handleAsyncThunkNoPayload(builder, createNewUser, 'createNewUser');
         handleAsyncThunk(builder, fetchAllUsers, 'user');

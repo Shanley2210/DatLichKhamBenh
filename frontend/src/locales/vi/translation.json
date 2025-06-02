@@ -86,6 +86,20 @@
         "select2": "Chọn...",
         "info": "Thông tin bác sĩ",
         "info2": "Nhập thông tin bác sĩ...",
+        "price": "Giá khám",
+        "price2": "Chọn giá...",
+        "methodPayment": "Phương thức thanh toán",
+        "methodPayment2": "Chọn phương thức...",
+        "province": "Chọn tỉnh/thành phố",
+        "province2": "Chọn tỉnh/thành phố...",
+        "clinicName": "Tên phòng khám",
+        "clinicName2": "Nhập tên phòng khám...",
+        "clinicAddress": "Địa chỉ phòng khám",
+        "clinicAddress2": "Nhập địa chỉ phòng khám...",
+        "note": "Ghi chú",
+        "note2": "Nhập ghi chú...",
+        "delInfo": "Thông tin chi tiết",
+        "delInfo2": "Nhập thông tin chi tiết...",
         "save": "Lưu",
         "edit": "Sửa"
     },
@@ -122,5 +136,12 @@
     "homePage": {
         "doctor": "Bác Sĩ Nổi Bật",
         "more": "Xem thêm"
+    },
+    "detaiDoctor": {
+        "noloading": "Không thể tải thông tin",
+        "appointment": "Lịch khám",
+        "noAppointment": "Không có lịch hẹn trong thời gian này.",
+        "choose": "Chọn ",
+        "chooseDoctor": "và đặt (Phí đặt lịch 0đ)"
     }
 }

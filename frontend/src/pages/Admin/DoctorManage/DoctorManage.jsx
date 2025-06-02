@@ -12,6 +12,7 @@ import {
 } from '@stores/doctorSlice';
 import { ToastContext } from '@contexts/ToastProvider';
 import SaveButton from '@components/SaveButton/SaveButton';
+import { fetchMethods, fetchPrices, fetchProvinces } from '@stores/adminSlice';
 
 function DoctorManage() {
     const { t } = useTranslation();
@@ -21,13 +22,30 @@ function DoctorManage() {
 
     const { allDoctors } = useSelector((state) => state.doctor);
     const { selectedLanguage } = useSelector((state) => state.language);
+    const { prices } = useSelector((state) => state.admin);
+    const { payments } = useSelector((state) => state.admin);
+    const { provinces } = useSelector((state) => state.admin);
 
-    const [doctorSelected, setDoctorSelected] = useState(null);
     const [doctorDesc, setDoctorDesc] = useState('');
     const [contentMarkDown, setContentMarkDown] = useState('');
     const [contentHTML, setContentHTML] = useState('');
-    const [doctorOptions, setDoctorOptions] = useState([]);
     const [isUpdate, setIsUpdate] = useState(false);
+    const [doctorOptions, setDoctorOptions] = useState([]);
+    const [options, setOptions] = useState({
+        price: [],
+        payment: [],
+        province: []
+    });
+
+    const [doctorSelected, setDoctorSelected] = useState(null);
+    const [selects, setSelects] = useState({
+        price: null,
+        payment: null,
+        province: null
+    });
+    const [clinicName, setClinicName] = useState('');
+    const [clinicAddress, setClinicAddress] = useState('');
+    const [note, setNote] = useState('');
 
     const listDoctors = () => {
         if (allDoctors && allDoctors.length > 0) {
@@ -206,11 +224,38 @@ function DoctorManage() {
 
     useEffect(() => {
         dispatch(fetchAllDoctors());
+        dispatch(fetchPrices());
+        dispatch(fetchMethods());
+        dispatch(fetchProvinces());
     }, [dispatch]);
 
     useEffect(() => {
         listDoctors();
     }, [allDoctors]);
+
+    useEffect(() => {
+        if (prices.length > 0 && payments.length > 0 && provinces.length > 0) {
+            setOptions({
+                price: prices.map((p) => ({
+                    label:
+                        selectedLanguage === 'vi'
+                            ? p.valueVi + ' VND'
+                            : p.valueEn + ' USD',
+                    value: p.key
+                })),
+                payment: payments.map((p) => ({
+                    label: selectedLanguage === 'vi' ? p.valueVi : p.valueEn,
+                    value: p.key
+                })),
+                province: provinces.map((p) => ({
+                    label: selectedLanguage === 'vi' ? p.valueVi : p.valueEn,
+                    value: p.key
+                }))
+            });
+        }
+    }, [prices, payments, provinces, selectedLanguage]);
+
+    console.log(selects);
 
     return (
         <div className={styles.userReduxContainer}>
@@ -253,7 +298,90 @@ function DoctorManage() {
                 </div>
             </div>
 
+            <div className='row g-4 mt-3'>
+                <div className='col-md-4'>
+                    <label className='form-label fw-semibold'>
+                        {t('manageDoctor.price')}
+                    </label>
+                    <Select
+                        options={options.price}
+                        onChange={(selected) =>
+                            setSelects((prev) => ({ ...prev, price: selected }))
+                        }
+                        placeholder={t('manageDoctor.price2')}
+                    />
+                </div>
+
+                <div className='col-md-4'>
+                    <label className='form-label fw-semibold'>
+                        {t('manageDoctor.methodPayment')}
+                    </label>
+                    <Select
+                        options={options.payment}
+                        onChange={(selected) =>
+                            setSelects((prev) => ({
+                                ...prev,
+                                payment: selected
+                            }))
+                        }
+                        placeholder={t('manageDoctor.methodPayment2')}
+                    />
+                </div>
+
+                <div className='col-md-4'>
+                    <label className='form-label fw-semibold'>
+                        {t('manageDoctor.province')}
+                    </label>
+                    <Select
+                        options={options.province}
+                        onChange={(selected) =>
+                            setSelects((prev) => ({
+                                ...prev,
+                                province: selected
+                            }))
+                        }
+                        placeholder={t('manageDoctor.province2')}
+                    />
+                </div>
+
+                <div className='col-md-4'>
+                    <label className='form-label fw-semibold'>
+                        {t('manageDoctor.clinicName')}
+                    </label>
+                    <input
+                        type='text'
+                        className='form-control'
+                        placeholder={t('manageDoctor.clinicName2')}
+                    />
+                </div>
+
+                <div className='col-md-8'>
+                    <label className='form-label fw-semibold'>
+                        {t('manageDoctor.clinicAddress')}
+                    </label>
+                    <input
+                        type='text'
+                        className='form-control'
+                        placeholder={t('manageDoctor.clinicAddress2')}
+                    />
+                </div>
+
+                <div className='col-md-8'>
+                    <label className='form-label fw-semibold'>
+                        {t('manageDoctor.note')}
+                    </label>
+                    <textarea
+                        className='form-control'
+                        rows={8}
+                        placeholder={t('manageDoctor.note2')}
+                    ></textarea>
+                </div>
+            </div>
+
             <div className='mt-4'>
+                <label className='form-label fw-semibold'>
+                    {t('manageDoctor.delInfo')}
+                </label>
                 <Editor
                     contentMarkDown={contentMarkDown}
                     contentHTML={contentHTML}

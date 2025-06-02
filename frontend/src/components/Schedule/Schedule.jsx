@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchScheduleByDate } from '@stores/doctorSlice';
 import { FaRegCalendarAlt } from 'react-icons/fa';
+import { FaRegHandPointUp } from 'react-icons/fa';
 
 function Schedule({ doctorId }) {
     const { t } = useTranslation();
@@ -23,12 +24,19 @@ function Schedule({ doctorId }) {
 
     const arrDays = [];
     for (let i = 0; i < 7; i++) {
-        const date = addDays(new Date(), i);
-        const startOfDayDate = startOfDay(date);
+        const dateObj = addDays(new Date(), i);
+        const startOfDayDate = startOfDay(dateObj);
+        const dateLabel =
+            i === 0
+                ? `${
+                      selectedLanguage === 'vi' ? 'Hôm nay' : 'Today'
+                  } - ${format(startOfDayDate, 'dd/MM')}`
+                : format(startOfDayDate, 'eeee - dd/MM', {
+                      locale: selectedLanguage === 'vi' ? vi : enGB
+                  });
+
         arrDays.push({
-            label: format(startOfDayDate, 'eeee - dd/MM', {
-                locale: selectedLanguage === 'vi' ? vi : enGB
-            }),
+            label: dateLabel,
             value: startOfDayDate.getTime()
         });
     }
@@ -62,9 +70,10 @@ function Schedule({ doctorId }) {
             <div className={styles.allTimes}>
                 <div className={styles.timeText}>
                     <span>
-                        <FaRegCalendarAlt /> Lịch Khám
+                        <FaRegCalendarAlt /> {t('detaiDoctor.appointment')}
                     </span>
                 </div>
+
                 <div className={styles.timesContent}>
                     {schedule && schedule.length > 0 ? (
                         schedule.map((item, index) => {
@@ -77,8 +86,15 @@ function Schedule({ doctorId }) {
                             );
                         })
                     ) : (
-                        <div>Không có lịch hẹn trong thời gian này</div>
+                        <div className={styles.noAppointment}>
+                            {t('detaiDoctor.noAppointment')}
+                        </div>
                     )}
+                </div>
+
+                <div className={styles.textNotes}>
+                    {t('detaiDoctor.choose')} <FaRegHandPointUp />{' '}
+                    {t('detaiDoctor.chooseDoctor')}
                 </div>
             </div>
         </div>

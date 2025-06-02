@@ -86,6 +86,20 @@
         "select2": "Select...",
         "info": "Doctor information",
         "info2": "Enter doctor information...",
+        "price": "Select price",
+        "price2": "Select price...",
+        "methodPayment": "Payment method",
+        "methodPayment2": "Select payment method...",
+        "province": "Select province/city",
+        "province2": "Select province/city...",
+        "clinicName": "Clinic name",
+        "clinicName2": "Enter clinic name...",
+        "clinicAddress": "Clinic address",
+        "clinicAddress2": "Enter clinic address...",
+        "note": "Note",
+        "note2": "Enter note...",
+        "delInfo": "Detailed information",
+        "delInfo2": "Enter detailed information...",
         "save": "Save",
         "edit": "Update"
     },
@@ -122,5 +136,12 @@
     "homePage": {
         "doctor": "Featured Doctor",
         "more": "More info"
+    },
+    "detaiDoctor": {
+        "noloading": "Unable to load information",
+        "appointment": "Appointment schedule",
+        "noAppointment": "No appointments available during this time.",
+        "choose": "Choose ",
+        "chooseDoctor": "and book (Booking fee 0đ)"
     }
 }

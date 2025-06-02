@@ -9,9 +9,11 @@ import { useEffect } from 'react';
 import { fetchDetailInfoDoctor } from '@stores/doctorSlice';
 import { bufferToBase64Url } from '@utils/commonUtils';
 import Schedule from '@components/Schedule/Schedule';
+import { useTranslation } from 'react-i18next';
 
 function DetailDoctor() {
     const { id } = useParams();
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const { detailInfo } = useSelector((state) => state.doctor);
     const { selectedLanguage } = useSelector((state) => state.language);
@@ -59,7 +61,7 @@ function DetailDoctor() {
                                                 detailInfo?.markdownData
                                                     ?.description || ''
                                             ).replace(/\n/g, '<br />') ||
-                                            'Không thể load được thông tin'
+                                            t('detaiDoctor.noloading')
                                     }}
                                 ></p>
                             </div>
@@ -75,7 +77,7 @@ function DetailDoctor() {
                                 dangerouslySetInnerHTML={{
                                     __html:
                                         detailInfo?.markdownData?.contentHTML ||
-                                        'Không thể load được thông tin'
+                                        t(`detaiDoctor.noloading`)
                                 }}
                             ></p>
                         </div>
