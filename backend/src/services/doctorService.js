@@ -89,7 +89,12 @@ const saveDetailInfoDoctor = (inputData) => {
                 !inputData.doctorId ||
                 !inputData.contentHTML ||
                 !inputData.contentMarkdown ||
-                !inputData.action
+                !inputData.action ||
+                !inputData.selectedPrice ||
+                !inputData.selectedPayment ||
+                !inputData.selectedProvince ||
+                !inputData.nameClinic ||
+                !inputData.addressClinic
             ) {
                 return resolve({
                     errCode: 1,
@@ -115,6 +120,33 @@ const saveDetailInfoDoctor = (inputData) => {
                         markDown.description = inputData.description;
                         await markDown.save();
                     }
+                }
+
+                const doctorInfo = await db.DoctorInfo.findOne({
+                    where: { doctorId: inputData.doctorId },
+                    raw: false
+                });
+
+                if (doctorInfo) {
+                    doctorInfo.priceId = inputData.selectedPrice;
+                    doctorInfo.provinceId = inputData.selectedProvince;
+                    doctorInfo.paymentId = inputData.selectedPayment;
+
+                    doctorInfo.addressClinic = inputData.addressClinic;
+                    doctorInfo.nameClinic = inputData.nameClinic;
+                    doctorInfo.note = inputData.note;
+
+                    await doctorInfo.save();
+                } else {
+                    await db.DoctorInfo.create({
+                        doctorId: inputData.doctorId,
+                        priceId: inputData.selectedPrice,
+                        provinceId: inputData.selectedProvince,
+                        paymentId: inputData.selectedPayment,
+                        addressClinic: inputData.addressClinic,
+                        nameClinic: inputData.nameClinic,
+                        note: inputData.note
+                    });
                 }
 
                 return resolve({
@@ -166,6 +198,28 @@ const getDetailDoctor = (inputId) => {
                                 'description',
                                 'contentHTML',
                                 'contentMarkdown'
+                            ]
+                        },
+                        {
+                            model: db.DoctorInfo,
+                            as: 'doctorInfoData',
+                            attributes: ['addressClinic', 'nameClinic', 'note'],
+                            include: [
+                                {
+                                    model: db.AllCode,
+                                    as: 'priceTypeData',
+                                    attributes: ['key', 'valueEn', 'valueVi']
+                                },
+                                {
+                                    model: db.AllCode,
+                                    as: 'provinceTypeData',
+                                    attributes: ['key', 'valueEn', 'valueVi']
+                                },
+                                {
+                                    model: db.AllCode,
+                                    as: 'paymentTypeData',
+                                    attributes: ['key', 'valueEn', 'valueVi']
+                                }
                             ]
                         }
                     ],
@@ -303,11 +357,64 @@ const getScheduleDate = (doctorId, date) => {
     });
 };
 
+const extraInfoDoctorById = (doctorId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!doctorId) {
+                return resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameters!'
+                });
+            }
+
+            const extraInfo = await db.DoctorInfo.findOne({
+                where: { doctorId: doctorId },
+                attributes: ['doctorId', 'addressClinic', 'nameClinic', 'note'],
+                include: [
+                    {
+                        model: db.AllCode,
+                        as: 'priceTypeData',
+                        attributes: ['key', 'valueEn', 'valueVi']
+                    },
+                    {
+                        model: db.AllCode,
+                        as: 'provinceTypeData',
+                        attributes: ['key', 'valueEn', 'valueVi']
+                    },
+                    {
+                        model: db.AllCode,
+                        as: 'paymentTypeData',
+                        attributes: ['key', 'valueEn', 'valueVi']
+                    }
+                ],
+                raw: false,
+                nest: true
+            });
+
+            if (!extraInfo) {
+                return resolve({
+                    errCode: 2,
+                    errMessage: 'Extra info not found'
+                });
+            }
+
+            return resolve({
+                errCode: 0,
+                message: 'OK',
+                data: extraInfo
+            });
+        } catch (e) {
+            return reject(e);
+        }
+    });
+};
+
 export {
     getTopDoctorsHome,
     getAllDoctors,
     saveDetailInfoDoctor,
     getDetailDoctor,
     createAppointmentPlan,
-    getScheduleDate
+    getScheduleDate,
+    extraInfoDoctorById
 };

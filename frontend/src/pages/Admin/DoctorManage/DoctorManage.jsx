@@ -66,22 +66,42 @@ function DoctorManage() {
             );
 
             if (res.payload) {
-                if (res.payload.data.data.markdownData) {
-                    setContentMarkDown(
-                        res.payload.data.data.markdownData.contentMarkdown
-                    );
-                    setDoctorDesc(
-                        res.payload.data.data.markdownData.description
-                    );
-                    setContentHTML(
-                        res.payload.data.data.markdownData.contentHTML
-                    );
+                const markdown = res.payload.markdownData;
+                const info = res.payload.doctorInfoData;
+                if (markdown || info) {
+                    setContentMarkDown(markdown.contentMarkdown || '');
+                    setDoctorDesc(markdown.description || '');
+                    setContentHTML(markdown.contentHTML || '');
+
+                    setClinicName(info.nameClinic || '');
+                    setClinicAddress(info.addressClinic || '');
+                    setNote(info.note || '');
+                    setSelects({
+                        price: options.price.find(
+                            (p) => p.value === info.priceTypeData.key
+                        ),
+                        payment: options.payment.find(
+                            (p) => p.value === info.paymentTypeData.key
+                        ),
+                        province: options.province.find(
+                            (p) => p.value === info.provinceTypeData.key
+                        )
+                    });
                     setIsUpdate(true);
                 } else {
                     setContentMarkDown('');
                     setDoctorDesc('');
                     setContentHTML('');
                     setIsUpdate(false);
+
+                    setClinicName('');
+                    setClinicAddress('');
+                    setNote('');
+                    setSelects({
+                        price: null,
+                        payment: null,
+                        province: null
+                    });
                 }
             } else {
                 console.error('Không lấy được dữ liệu bác sĩ:', res.error);
@@ -103,34 +123,35 @@ function DoctorManage() {
                 description: doctorDesc,
                 contentHTML: contentHTML,
                 contentMarkdown: contentMarkDown,
-                action: 'CREATE'
+                action: 'CREATE',
+
+                selectedPrice: selects.price ? selects.price.value : null,
+                selectedPayment: selects.payment ? selects.payment.value : null,
+                selectedProvince: selects.province
+                    ? selects.province.value
+                    : null,
+                nameClinic: clinicName,
+                addressClinic: clinicAddress,
+                note: note
             };
 
-            if (!dataSave.description) {
+            if (
+                !dataSave.doctorId ||
+                !dataSave.description ||
+                !dataSave.contentHTML ||
+                !dataSave.contentMarkdown ||
+                !dataSave.selectedPrice ||
+                !dataSave.selectedPayment ||
+                !dataSave.selectedProvince ||
+                !dataSave.nameClinic ||
+                !dataSave.addressClinic ||
+                !dataSave.note
+            ) {
                 if (selectedLanguage === 'vi') {
-                    toast.error('Vui lòng nhập mô tả');
+                    toast.error('Vui lòng điền đầy đủ thông tin');
                 } else {
-                    toast.error('Please enter a description');
+                    toast.error('Please fill in all information');
                 }
-
-                return;
-            }
-            if (!dataSave.contentHTML) {
-                if (selectedLanguage === 'vi') {
-                    toast.error('Vui lòng nhập nội dung HTML');
-                } else {
-                    toast.error('Please enter HTML content');
-                }
-
-                return;
-            }
-            if (!dataSave.contentMarkdown) {
-                if (selectedLanguage === 'vi') {
-                    toast.error('Vui lòng nhập nội dung MarkDown');
-                } else {
-                    toast.error('Please enter Markdown content');
-                }
-
                 return;
             }
 
@@ -149,13 +170,12 @@ function DoctorManage() {
                     }
                 } else {
                     if (selectedLanguage === 'vi') {
-                        if (isUpdate)
-                            toast.success('Lỗi khi sửa mô tả bác sĩ!');
-                        else toast.success('Lỗi khi thêm mô tả bác sĩ!');
+                        if (isUpdate) toast.error('Lỗi khi sửa mô tả bác sĩ!');
+                        else toast.error('Lỗi khi thêm mô tả bác sĩ!');
                     } else {
                         if (isUpdate)
-                            toast.success('Error when update description!');
-                        else toast.success('Error when add description!');
+                            toast.error('Error when update description!');
+                        else toast.error('Error when add description!');
                     }
                 }
             } catch (e) {
@@ -167,34 +187,35 @@ function DoctorManage() {
                 description: doctorDesc,
                 contentHTML: contentHTML,
                 contentMarkdown: contentMarkDown,
-                action: 'EDIT'
+                action: 'EDIT',
+
+                selectedPrice: selects.price ? selects.price.value : null,
+                selectedPayment: selects.payment ? selects.payment.value : null,
+                selectedProvince: selects.province
+                    ? selects.province.value
+                    : null,
+                nameClinic: clinicName,
+                addressClinic: clinicAddress,
+                note: note
             };
 
-            if (!dataUpdate.description) {
+            if (
+                !dataUpdate.doctorId ||
+                !dataUpdate.description ||
+                !dataUpdate.contentHTML ||
+                !dataUpdate.contentMarkdown ||
+                !dataUpdate.selectedPrice ||
+                !dataUpdate.selectedPayment ||
+                !dataUpdate.selectedProvince ||
+                !dataUpdate.nameClinic ||
+                !dataUpdate.addressClinic ||
+                !dataUpdate.note
+            ) {
                 if (selectedLanguage === 'vi') {
-                    toast.error('Vui lòng nhập mô tả');
+                    toast.error('Vui lòng điền đầy đủ thông tin');
                 } else {
-                    toast.error('Please enter a description');
+                    toast.error('Please fill in all information');
                 }
-
-                return;
-            }
-            if (!dataUpdate.contentHTML) {
-                if (selectedLanguage === 'vi') {
-                    toast.error('Vui lòng nhập nội dung HTML');
-                } else {
-                    toast.error('Please enter HTML content');
-                }
-
-                return;
-            }
-            if (!dataUpdate.contentMarkdown) {
-                if (selectedLanguage === 'vi') {
-                    toast.error('Vui lòng nhập nội dung MarkDown');
-                } else {
-                    toast.error('Please enter Markdown content');
-                }
-
                 return;
             }
 
@@ -211,7 +232,7 @@ function DoctorManage() {
                     }
                 } else {
                     if (selectedLanguage === 'vi') {
-                        toast.success('Lỗi khi sửa mô tả bác sĩ!');
+                        toast.error('Lỗi khi sửa mô tả bác sĩ!');
                     } else {
                         toast.success('Error when update description!');
                     }
@@ -254,8 +275,6 @@ function DoctorManage() {
             });
         }
     }, [prices, payments, provinces, selectedLanguage]);
-
-    console.log(selects);
 
     return (
         <div className={styles.userReduxContainer}>
@@ -305,6 +324,7 @@ function DoctorManage() {
                     </label>
                     <Select
                         options={options.price}
+                        value={selects.price}
                         onChange={(selected) =>
                             setSelects((prev) => ({ ...prev, price: selected }))
                         }
@@ -318,6 +338,7 @@ function DoctorManage() {
                     </label>
                     <Select
                         options={options.payment}
+                        value={selects.payment}
                         onChange={(selected) =>
                             setSelects((prev) => ({
                                 ...prev,
@@ -334,6 +355,7 @@ function DoctorManage() {
                     </label>
                     <Select
                         options={options.province}
+                        value={selects.province}
                         onChange={(selected) =>
                             setSelects((prev) => ({
                                 ...prev,
@@ -352,6 +374,8 @@ function DoctorManage() {
                         type='text'
                         className='form-control'
                         placeholder={t('manageDoctor.clinicName2')}
+                        value={clinicName}
+                        onChange={(e) => setClinicName(e.target.value)}
                     />
                 </div>
 
@@ -363,6 +387,8 @@ function DoctorManage() {
                         type='text'
                         className='form-control'
                         placeholder={t('manageDoctor.clinicAddress2')}
+                        value={clinicAddress}
+                        onChange={(e) => setClinicAddress(e.target.value)}
                     />
                 </div>
 
@@ -374,6 +400,8 @@ function DoctorManage() {
                         className='form-control'
                         rows={8}
                         placeholder={t('manageDoctor.note2')}
+                        value={note}
+                        onChange={(e) => setNote(e.target.value)}
                     ></textarea>
                 </div>
             </div>
@@ -391,7 +419,7 @@ function DoctorManage() {
             </div>
 
             <SaveButton
-                handleClick={handleSubmit}
+                click={handleSubmit}
                 title={
                     isUpdate ? t('manageDoctor.edit') : t('manageDoctor.save')
                 }

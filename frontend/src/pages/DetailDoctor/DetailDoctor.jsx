@@ -10,6 +10,7 @@ import { fetchDetailInfoDoctor } from '@stores/doctorSlice';
 import { bufferToBase64Url } from '@utils/commonUtils';
 import Schedule from '@components/Schedule/Schedule';
 import { useTranslation } from 'react-i18next';
+import MedicalExamAddress from '@components/MedicalExamAddress/MedicalExamAddress';
 
 function DetailDoctor() {
     const { id } = useParams();
@@ -69,7 +70,7 @@ function DetailDoctor() {
 
                         <div className={styles.contentSchedule}>
                             <Schedule doctorId={id} />
-                            <div>Địa chỉ khám</div>
+                            <MedicalExamAddress doctorId={id} />
                         </div>
 
                         <div className={styles.doctorSchedule}>

@@ -143,5 +143,13 @@
         "noAppointment": "Không có lịch hẹn trong thời gian này.",
         "choose": "Chọn ",
         "chooseDoctor": "và đặt (Phí đặt lịch 0đ)"
+    },
+    "extraInfo": {
+        "address": "Địa chỉ khám",
+        "price": "Giá khám",
+        "methodPayment": "Phương thức thanh toán",
+        "view": "Xem chi tiết",
+        "hide": "Ẩn bảng giá",
+        "method": "Bệnh viện có thể thanh toán chi phí bằng hình thức: "
     }
 }

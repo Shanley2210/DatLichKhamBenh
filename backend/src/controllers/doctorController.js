@@ -1,5 +1,6 @@
 import {
     createAppointmentPlan,
+    extraInfoDoctorById,
     getAllDoctors,
     getDetailDoctor,
     getScheduleDate,
@@ -91,11 +92,25 @@ const getScheduleByDate = async (req, res) => {
     }
 };
 
+const getExtraInfoDoctorById = async (req, res) => {
+    try {
+        const response = await extraInfoDoctorById(req.query.doctorId);
+
+        return res.status(200).json(response);
+    } catch (e) {
+        console.log('get extra info doctor by id error: ', e);
+        return res
+            .status(200)
+            .json({ errCode: -1, errMessage: 'Error from server' });
+    }
+};
+
 export {
     getDoctorHome,
     getAllDoctor,
     postInfoDoctor,
     getDetailDoctorById,
     createMedicalAppointmentPlan,
-    getScheduleByDate
+    getScheduleByDate,
+    getExtraInfoDoctorById
 };

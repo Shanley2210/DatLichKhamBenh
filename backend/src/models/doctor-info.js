@@ -8,7 +8,26 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            DoctorInfo.belongsTo(models.User, {
+                foreignKey: 'doctorId',
+                as: 'doctorInfoData'
+            });
+
+            DoctorInfo.belongsTo(models.AllCode, {
+                foreignKey: 'priceId',
+                targetKey: 'key',
+                as: 'priceTypeData'
+            });
+            DoctorInfo.belongsTo(models.AllCode, {
+                foreignKey: 'provinceId',
+                targetKey: 'key',
+                as: 'provinceTypeData'
+            });
+            DoctorInfo.belongsTo(models.AllCode, {
+                foreignKey: 'paymentId',
+                targetKey: 'key',
+                as: 'paymentTypeData'
+            });
         }
     }
     DoctorInfo.init(
@@ -24,7 +43,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            modelName: 'DoctorInfo'
+            modelName: 'DoctorInfo',
+            freezeTableName: true
         }
     );
     return DoctorInfo;

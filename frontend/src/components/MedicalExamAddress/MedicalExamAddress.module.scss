@@ -1,0 +1,130 @@
+@use '@styles/variable.module.scss' as *;
+@use '@styles/mixin.module.scss' as mixin;
+
+.addressContainer {
+    padding-left: 1rem;
+    border-left: 1px solid $border-color;
+
+    .contentUp {
+        margin-bottom: 0.7rem;
+
+        .titleAddress {
+            text-transform: uppercase;
+            color: $third-color;
+            font-size: 1rem;
+        }
+
+        .nameClinic {
+            padding: 5px 0;
+            color: $third-color;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .detaiAddress {
+            color: $third-color;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+    }
+
+    .contentDown {
+        .priceDetail {
+            h3 {
+                text-transform: uppercase;
+                color: #333;
+                font-size: 1rem;
+                align-items: center;
+                margin: 7px 0;
+                display: flex;
+            }
+
+            .contentPrice {
+                @include mixin.flex_box_custom(space-between, flex-start);
+
+                padding: 5px;
+                border: 1px solid $border-color;
+                background-color: #f8f8f8;
+
+                .priceDescription {
+                    .titlePrice {
+                        text-transform: uppercase;
+                        color: #333;
+                        font-size: 0.9rem;
+                        align-items: center;
+                        margin: 0;
+                        display: flex;
+                        font-weight: 600;
+                    }
+
+                    .note {
+                        color: $third-color;
+                        font-weight: 600;
+                        margin: 0;
+                        font-size: 0.8rem;
+                    }
+                }
+
+                .price {
+                    color: $third-color;
+                    font-weight: 600;
+                }
+            }
+
+            .contentPayment {
+                padding: 5px;
+                border: 1px solid $border-color;
+                font-size: 0.9rem;
+                color: $third-color;
+                background-color: #eee;
+                margin-bottom: 10px;
+            }
+
+            span {
+                font-weight: 600;
+                font-size: 0.9rem;
+                color: #7ac2ca;
+                cursor: pointer;
+                padding-top: 5px;
+                float: right;
+
+                &:hover {
+                    color: #1883ad;
+                }
+            }
+        }
+        .priceNoDetail {
+            @include mixin.flex_box_custom(flex-start, center, 10px);
+
+            h3 {
+                text-transform: uppercase;
+                color: #333;
+                font-size: 1rem;
+                align-items: center;
+                margin: 0;
+                display: flex;
+            }
+
+            p {
+                padding: 5px 0;
+                color: $third-color;
+                font-weight: 600;
+                font-size: 1rem;
+                margin: 0;
+            }
+
+            span {
+                font-weight: 600;
+                font-size: 0.9rem;
+                color: #7ac2ca;
+                cursor: pointer;
+                align-content: center;
+
+                &:hover {
+                    color: #1883ad;
+                }
+            }
+        }
+    }
+}

@@ -23,6 +23,7 @@ import {
     getAllDoctor,
     getDetailDoctorById,
     getDoctorHome,
+    getExtraInfoDoctorById,
     getScheduleByDate,
     postInfoDoctor
 } from '../controllers/doctorController';
@@ -71,6 +72,7 @@ const initWebRoutes = (app) => {
         createMedicalAppointmentPlan
     );
     router.get('/api/get-schedule-doctor-by-date', getScheduleByDate);
+    router.get('/api/get-extra-info-doctor-by-id', getExtraInfoDoctorById);
 
     //return
     return app.use('/', router);

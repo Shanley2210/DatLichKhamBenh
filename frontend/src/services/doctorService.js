@@ -27,11 +27,18 @@ const getScheduleByDate = async (doctorId, date) => {
     );
 };
 
+const getExtraInfoDoctorById = async (doctorId) => {
+    return await axios.get(
+        `/api/get-extra-info-doctor-by-id?doctorId=${doctorId}`
+    );
+};
+
 export {
     topDoctorsHome,
     allDoctors,
     saveDoctorInfo,
     getDetailDoctor,
     createMedicalAppointmentPlan,
-    getScheduleByDate
+    getScheduleByDate,
+    getExtraInfoDoctorById
 };

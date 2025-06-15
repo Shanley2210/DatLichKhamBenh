@@ -51,8 +51,6 @@ function Schedule({ doctorId }) {
         }
     }, [dispatch, doctorId, date]);
 
-    console.log(schedule);
-
     return (
         <div className={styles.scheduleContainer}>
             <div className={styles.selectDay}>

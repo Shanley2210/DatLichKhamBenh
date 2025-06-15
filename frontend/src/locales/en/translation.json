@@ -143,5 +143,13 @@
         "noAppointment": "No appointments available during this time.",
         "choose": "Choose ",
         "chooseDoctor": "and book (Booking fee 0đ)"
+    },
+    "extraInfo": {
+        "address": "Examination address",
+        "price": "Examination price",
+        "methodPayment": "Payment method",
+        "view": "View details",
+        "hide": "Hide price table",
+        "method": "The hospital can accept payment by method: "
     }
 }
