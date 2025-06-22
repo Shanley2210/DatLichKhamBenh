@@ -4,6 +4,7 @@ import {
     createMedicalAppointmentPlan,
     getDetailDoctor,
     getExtraInfoDoctorById,
+    getProfileDoctorById,
     getScheduleByDate,
     saveDoctorInfo,
     topDoctorsHome
@@ -122,6 +123,23 @@ export const fetchExtraInfoDoctor = createAsyncThunk(
     }
 );
 
+export const fetchProfileDoctor = createAsyncThunk(
+    'doctor/fetchProfileDoctor',
+    async (id, thunkAPI) => {
+        try {
+            const res = await getProfileDoctorById(id);
+
+            if (res && res.data.errCode === 0) {
+                return res.data.data;
+            } else {
+                return thunkAPI.rejectWithValue(res.data.errMessage);
+            }
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message || 'Undefined error');
+        }
+    }
+);
+
 const doctorSlice = createSlice({
     name: 'doctor',
     initialState: {
@@ -129,7 +147,8 @@ const doctorSlice = createSlice({
         allDoctors: [],
         detailInfo: null,
         schedule: [],
-        extraInfo: null
+        extraInfo: null,
+        profileDoctor: []
     },
     reducers: {
         clearTopDoctorsHome: (state) => {
@@ -142,6 +161,7 @@ const doctorSlice = createSlice({
         handleAsyncThunk(builder, fetchDetailInfoDoctor, 'detailInfo');
         handleAsyncThunk(builder, fetchScheduleByDate, 'schedule');
         handleAsyncThunk(builder, fetchExtraInfoDoctor, 'extraInfo');
+        handleAsyncThunk(builder, fetchProfileDoctor, 'profileDoctor');
 
         handleAsyncThunkNoPayload(
             builder,

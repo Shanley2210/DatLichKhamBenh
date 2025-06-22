@@ -5,6 +5,7 @@ import {
     getDetailDoctor,
     getScheduleDate,
     getTopDoctorsHome,
+    profileDoctorById,
     saveDetailInfoDoctor
 } from '../services/doctorService';
 
@@ -105,6 +106,19 @@ const getExtraInfoDoctorById = async (req, res) => {
     }
 };
 
+const getProfileDoctorById = async (req, res) => {
+    try {
+        const response = await profileDoctorById(req.query.doctorId);
+
+        return res.status(200).json(response);
+    } catch (e) {
+        console.log('get profile doctor by id error: ', e);
+        return res
+            .status(200)
+            .json({ errCode: -1, errMessage: 'Error from server' });
+    }
+};
+
 export {
     getDoctorHome,
     getAllDoctor,
@@ -112,5 +126,6 @@ export {
     getDetailDoctorById,
     createMedicalAppointmentPlan,
     getScheduleByDate,
-    getExtraInfoDoctorById
+    getExtraInfoDoctorById,
+    getProfileDoctorById
 };

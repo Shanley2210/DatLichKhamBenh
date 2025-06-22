@@ -10,30 +10,6 @@
     }
 
     .content {
-        .doctorInfo {
-            @include mixin.flex_box_custom(flex-start, center, 2rem);
-
-            .avatar {
-                @include mixin.flex_box_custom(center, center);
-
-                img {
-                    width: 170px;
-                    border-radius: 50%;
-                }
-            }
-
-            .doctorDescription {
-                margin-right: 2rem;
-                h3 {
-                    font-weight: 600;
-                }
-
-                p {
-                    color: #555;
-                }
-            }
-        }
-
         .contentSchedule {
             @include mixin.flex_box_custom(flex-start, center);
 

@@ -409,6 +409,85 @@ const extraInfoDoctorById = (doctorId) => {
     });
 };
 
+const profileDoctorById = (doctorId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!doctorId) {
+                return resolve({
+                    errCode: 1,
+                    errMessage: 'Missing required parameters!'
+                });
+            } else {
+                const profile = await db.User.findOne({
+                    where: { id: doctorId, roleId: 'R2' },
+                    attributes: {
+                        exclude: [
+                            'password',
+                            'refreshToken',
+                            'createdAt',
+                            'updatedAt',
+                            'roleId',
+                            'gender',
+                            'positionId'
+                        ]
+                    },
+                    include: [
+                        {
+                            model: db.AllCode,
+                            as: 'positionData',
+                            attributes: ['valueEn', 'valueVi']
+                        },
+                        {
+                            model: db.MarkDown,
+                            as: 'markdownData',
+                            attributes: ['description']
+                        },
+                        {
+                            model: db.DoctorInfo,
+                            as: 'doctorInfoData',
+                            attributes: ['addressClinic', 'nameClinic', 'note'],
+                            include: [
+                                {
+                                    model: db.AllCode,
+                                    as: 'priceTypeData',
+                                    attributes: ['key', 'valueEn', 'valueVi']
+                                },
+                                {
+                                    model: db.AllCode,
+                                    as: 'provinceTypeData',
+                                    attributes: ['key', 'valueEn', 'valueVi']
+                                },
+                                {
+                                    model: db.AllCode,
+                                    as: 'paymentTypeData',
+                                    attributes: ['key', 'valueEn', 'valueVi']
+                                }
+                            ]
+                        }
+                    ],
+                    raw: false,
+                    nest: true
+                });
+
+                if (!profile) {
+                    return resolve({
+                        errCode: 2,
+                        errMessage: 'Data not found'
+                    });
+                }
+
+                return resolve({
+                    errCode: 0,
+                    message: 'OK',
+                    data: profile
+                });
+            }
+        } catch (e) {
+            return reject(e);
+        }
+    });
+};
+
 export {
     getTopDoctorsHome,
     getAllDoctors,
@@ -416,5 +495,6 @@ export {
     getDetailDoctor,
     createAppointmentPlan,
     getScheduleDate,
-    extraInfoDoctorById
+    extraInfoDoctorById,
+    profileDoctorById
 };

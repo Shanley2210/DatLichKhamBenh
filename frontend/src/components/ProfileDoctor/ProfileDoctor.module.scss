@@ -1,0 +1,39 @@
+@use '@styles/variable.module.scss' as *;
+@use '@styles/mixin.module.scss' as mixin;
+
+.doctorInfo {
+    @include mixin.flex_box_custom(flex-start, center, 2rem);
+
+    .avatar {
+        @include mixin.flex_box_custom(center, center);
+
+        img {
+            width: 150px;
+            border-radius: 50%;
+        }
+    }
+
+    .doctorDescription {
+        margin-right: 2rem;
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        p {
+            color: #555;
+        }
+    }
+}
+
+.price {
+    @include mixin.flex_box_custom(center, center);
+    font-size: 1rem;
+    margin: 1rem 0;
+
+    span {
+        font-weight: 600;
+        margin-left: 5px;
+    }
+}

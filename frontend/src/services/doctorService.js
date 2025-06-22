@@ -33,6 +33,12 @@ const getExtraInfoDoctorById = async (doctorId) => {
     );
 };
 
+const getProfileDoctorById = async (doctorId) => {
+    return await axios.get(
+        `/api/get-profile-doctor-by-id?doctorId=${doctorId}`
+    );
+};
+
 export {
     topDoctorsHome,
     allDoctors,
@@ -40,5 +46,6 @@ export {
     getDetailDoctor,
     createMedicalAppointmentPlan,
     getScheduleByDate,
-    getExtraInfoDoctorById
+    getExtraInfoDoctorById,
+    getProfileDoctorById
 };
